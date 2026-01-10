@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hydropower Potential Investment | Yu-Shan Lin</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🦦</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --deep-green: #3F4A3A;
+      --accent-green: #A8C686;
+      --bg-main: #FAFAF8;
+      --text-dark: #2B2B2B;
+      --text-light: #F5F5F5;
+      --text-muted: #6F6F6F;
+      --line: #D8D8D8;
+      --link-blue: #1540dd;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background: var(--bg-main); 
+      color: var(--text-dark); 
+      line-height: 1.7; 
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .container, .project-container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+    
+    /* ===== TYPOGRAPHY & EMPHASIS ===== */
+    h1 { font-size: 2.5rem; font-weight: 500; margin-bottom: 8px; }
+    h2 { 
+      margin-top: 28px; 
+      margin-bottom: 8px; 
+      font-size: 1.4rem; 
+      border-left: 4px solid var(--accent-green); 
+      padding-left: 12px;
+      color: var(--deep-green);
+    }
+    
+    p { margin-bottom: 12px; text-indent: 2em; text-align: left; }
+    .emphasize { color: var(--link-blue); font-weight: 500; letter-spacing: 0.01em; }
+
+    /* ===== HERO & NAV ===== */
+    .hero { background: var(--deep-green); color: var(--text-light); padding: 40px 0 26px; }
+    .hero-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; }
+    .hero-left p { font-size: 1.15rem; max-width: 850px; opacity: 0.95; text-indent: 0; }
+    .hero-right { margin-top: 35px; white-space: nowrap; font-size: 1rem; }
+    .hero-right a { color: var(--accent-green); text-decoration: none; font-weight: 500; }
+    .hero-right .sep { padding: 0 10px; opacity: 0.4; }
+
+    .nav-bar { border-bottom: 1px solid var(--line); background: #fff; position: sticky; top: 0; z-index: 1000; }
+    .nav-inner { display: flex; gap: 18px; padding: 14px 0; font-size: 1rem; flex-wrap: wrap; }
+    .nav-inner a { color: var(--text-muted); text-decoration: none; }
+    .nav-inner a:hover { color: var(--text-dark); }
+
+    /* ===== PROJECT CONTENT ===== */
+    .project-container { margin-top: 32px; padding-bottom: 60px; }
+    .meta { color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; }
+    
+    .analysis-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; margin: 24px 0; align-items: start; }
+    .analysis-text-full { margin-top: 12px; }
+
+    /* Image Styles */
+    .analysis-images { display: flex; gap: 24px; margin-bottom: 16px; }
+    .analysis-images figure { flex: 1; margin: 0; }
+    .analysis-images img { height: auto; width: 100%; border-radius: 4px; display: block; }
+    .single-figure img { width: 100%; max-width: 1000px; height: auto; display: block; margin: 12px 0 8px 0; }
+
+    .caption { margin-top: 8px; font-size: 0.88rem; color: var(--text-muted); font-style: italic; text-align: left; text-indent: 0; }
+
+    .note { 
+      margin: 32px 0; 
+      padding: 14px 18px; 
+      border-left: 4px solid #B00020; 
+      color: #B00020; 
+      background: rgba(176, 0, 32, 0.04); 
+      font-size: 0.92rem; 
+      border-radius: 0 8px 8px 0; 
+      text-indent: 0;
+      font-style: italic;
+    }
+
+    /* ===== FOOTER NAV ===== */
+    .pager { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+    .pager a { text-decoration: none; color: var(--text-dark); border: 1px solid var(--line); padding: 10px 20px; border-radius: 8px; background: #fff; font-weight: 500; display: inline-block; }
+
+    @media (max-width: 900px) {
+      .hero-row, .analysis-grid, .analysis-images { flex-direction: column; grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-row">
+        <div class="hero-left">
+          <h1>Yu-Shan Lin</h1>
+          <p>Combining scientific insight and economic analysis to translate complex data into measurable, data-driven impact for sustainable business transformation 🌱</p>
+        </div>
+        <div class="hero-right">
+          <a href="mailto:yushan0989@gmail.com">Contact</a>
+          <span class="sep">|</span>
+          <a href="https://www.linkedin.com/in/yu-shan-lin" target="_blank">LinkedIn</a>
+          <span class="sep">|</span>
+          <a href="https://github.com/yushan0989" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#projects">Strategic Project Experience</a>
+        <span class="nav-sep">|</span>
+        <a href="#expertise">Professional Expertise</a>
+        <span class="nav-sep">|</span>
+        <a href="../index.html#thesis">Graduate Thesis</a>
+        <span class="nav-sep">|</span>
+        <a href="../index.html#about">About Me</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="project-container">
+    <h1>Hydropower Potential Investment</h1>
+    <div class="meta">Python · Climate Scenario · Hindcasting · Long-term Climate Forecasts</div>
+
+    <h2>Project Description & Objective</h2>
+    <p>Developed a strategic assessment for a Tier-1 manufacturing partner within a global consumer electronics supply chain, driven by the parent company's ambitious mandate to achieve <span class="emphasize">carbon neutrality</span> by 2030. 
+       The primary objective was to translate complex climate-scenario data into insightful <span class="emphasize">energy yield proxies</span>, enabling the client to make informed decisions regarding <span class="emphasize">capital investment</span> and capacity planning for the next several decades.</p>
+
+    <h2>Methods & Data</h2>
+    <p>The analysis followed a rigorous four-stage framework to ensure the reliability of long-term energy projections. 
+      First, I performed a <span class="emphasize">statistical validation</span> to confirm the high positive correlation between regional precipitation and historical output. 
+      After selecting the optimal climate models, I gridded the meteorological data to align with the specific coordinates of the client’s sites.</p>
+
+    <p><strong>Machine Learning & Backtesting:</strong>
+    Using a 20-year historical dataset, I employed a <span class="emphasize">split-window validation (hindcasting)</span> technique to train and 
+    test multiple <span class="emphasize">machine-learning</span> regression models. The model with the lowest MAE was then selected to simulate yields across four RCP scenarios (2.6, 4.5, 6.0, and 8.5).</p>
+
+    <p>This approach allowed for <span class="emphasize">time-scale alignment</span> between historical records and CMIP6 projections, 
+      providing climate scenario interpretation that translates raw data into clear <span class="emphasize">risk metrics</span> for strategic planning. 
+      This ensured the client’s renewable energy strategy accounted for climate volatility and long-term investment resilience.</p>
+
+    <h2>Key Deliverables</h2>
+
+    <section>
+      <div class="analysis-images">
+        <figure style="flex: 0.95">
+          <img src="HP_correlation.png" alt="Precipitation vs Electricity Correlation" style="max-width: 95";>
+          <figcaption class="caption">Figure 1. Statistical correlation between observed precipitation and electricity generation.</figcaption>
+        </figure>
+        <figure style="flex: 1.20">
+          <img src="HP_lagged.png" alt="Lagged Hydrological Response" style="max-width: 120%";>
+          <figcaption class="caption">Figure 2. Time-lagged correlation analysis reflecting the delay in streamflow accumulation.</figcaption>
+        </figure>
+      </div>
+      <div class="analysis-text-full">
+        <p><strong>Figure 1</strong> demonstrate the initial validation phase. 
+          By establishing a strong statistical link between meteorological inputs and energy output, 
+          the model achieved a high degree of fit during the historical training period, ensuring the baseline for future projections was robust.
+          <strong>Figure 2</strong> highlights a critical technical deliverable: the time-lagged correlation. Through iterative testing of various monthly moving averages, I identified that a three-month moving average (3-MMA) most effectively captures the lagged relationship between rainfall and power generation. 
+          Unlike solar energy, hydropower yields are dependent on catchment accumulation time; accounting for this lag improved model accuracy significantly. 
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="analysis-images">
+        <figure>
+          <img src="HP_versus.png" alt="Observed vs Predicted Values" style="max-width: 105%";>
+          <figcaption class="caption">Figure 3. Comparison between observed historical data and ML model predicted values (hindcasting).</figcaption>
+
+        </figure>
+        <figure style="flex: 0.8;">
+          <img src="HP_MAE.png" alt="Model Error Comparison" style="max-width: 60%;">
+          <figcaption class="caption">Figure 4. Mean Absolute Error (MAE) comparison across multiple GCMs for model selection.</figcaption>
+        </figure>
+      </div>
+      <div class="analysis-text-full">
+        <p><strong>Figure 3</strong> demonstrates high predictive accuracy by closely tracking 10 years of historical energy fluctuations and seasonal peaks. 
+          This successful hindcasting validates the machine learning framework as a robust tool for simulating future energy yields across various climate scenarios.
+          <strong>Figure 4</strong> shows the final model selection process, one model was identified as having the lowest MAE, making it the primary driver for future simulations.</p>
+      </div>
+    </section>
+
+    <section class="analysis-grid" style="grid-template-columns: 1.1fr 1.2fr; gap: 20px;">
+      <figure>
+        <img src="HP_scenario.png" alt="RCP Scenario Projections" style="max-width: 90%;">
+        <figcaption class="caption">Figure 5. Predicted electricity generation across RCP 2.6, 4.5, 6.0, and 8.5 scenarios through 2030.</figcaption>
+      </figure>
+      
+      <div class="analysis-text" style="margin-left: -30px;">
+        <p><strong>Figure 5</strong> 
+          presents the final energy yield proxies across four IPCC Representative Concentration Pathways (RCPs). 
+          By presenting the client with a range of outcomes from the low-emission RCP 2.6 to the high-emission RCP 8.5,
+          I provided the client with a way to stress-test their capital investments and ensure their long-term plans remain solid under various future climate conditions.</p>
+      </div>
+    </section>
+
+    <div class="note">
+      <strong>Note:</strong> Out of respect for data privacy, only a high-level overview of the methodology and sanitized performance metrics are shared here.
+    </div>
+
+    <h2>Impact & Insights</h2>
+    <p>This project was a turning point in my career. Working closely with the client, I realised that while the science of climate change is clear, financial considerations are the primary driver for corporate <span class="emphasize">renewable energy transitions</span>. This insight is exactly what inspired me to move to the Netherlands to specialise in <span class="emphasize">Environmental Economics</span>, as I wanted to understand the market mechanisms that make large-scale sustainability possible.</p>
+
+    <p>The experience also sharpened my professional communication. I learned how to translate complex data into a <span class="emphasize">persuasive consulting report</span> that speaks the language of stakeholders. Furthermore, narrowing down the project scope gave me <span class="emphasize">unique energy market insights</span>, such as the strategic reasons why certain enterprises prioritise the stability of hydropower over the variability of solar energy.</p>
+
+    <nav class="pager">
+      <a href="../index.html#projects">← Back to projects</a>
+    </nav>
+  </main>
+
+</body>
+</html>

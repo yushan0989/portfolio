@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lightning Signal Nowcasting | Yu-Shan Lin</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🦦</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --deep-green: #3F4A3A;
+      --accent-green: #A8C686;
+      --bg-main: #FAFAF8;
+      --text-dark: #2B2B2B;
+      --text-light: #F5F5F5;
+      --text-muted: #6F6F6F;
+      --line: #D8D8D8;
+      --link-blue: #1540dd;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background: var(--bg-main); 
+      color: var(--text-dark); 
+      line-height: 1.7; 
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .container, .project-container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+    
+    /* ===== TYPOGRAPHY & EMPHASIS ===== */
+    h1 { font-size: 2.5rem; font-weight: 500; margin-bottom: 8px; }
+    h2 { 
+      margin-top: 28px; 
+      margin-bottom: 8px; 
+      font-size: 1.4rem; 
+      border-left: 4px solid var(--accent-green); 
+      padding-left: 12px;
+      color: var(--deep-green);
+    }
+    
+    p { margin-bottom: 12px; text-indent: 2em; text-align: left; }
+    .emphasize { color: var(--link-blue); font-weight: 500; letter-spacing: 0.01em; }
+
+    /* ===== HERO & NAV ===== */
+    .hero { background: var(--deep-green); color: var(--text-light); padding: 40px 0 26px; }
+    .hero-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; }
+    .hero-left p { font-size: 1.15rem; max-width: 850px; opacity: 0.95; text-indent: 0; }
+    .hero-right { margin-top: 35px; white-space: nowrap; font-size: 1rem; }
+    .hero-right a { color: var(--accent-green); text-decoration: none; font-weight: 500; }
+    .hero-right .sep { padding: 0 10px; opacity: 0.4; }
+
+    .nav-bar { border-bottom: 1px solid var(--line); background: #fff; position: sticky; top: 0; z-index: 1000; }
+    .nav-inner { display: flex; gap: 18px; padding: 14px 0; font-size: 1rem; flex-wrap: wrap; }
+    .nav-inner a { color: var(--text-muted); text-decoration: none; }
+    .nav-inner a:hover { color: var(--text-dark); }
+
+    /* ===== PROJECT CONTENT ===== */
+    .project-container { margin-top: 32px; padding-bottom: 60px; }
+    .meta { color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; }
+    
+    /* Triple Images Grid */
+    .analysis-triple-images { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 24px 0; }
+    .analysis-triple-images img { width: 100%; height: auto; border-radius: 4px; display: block; }
+
+    .caption { margin-top: 8px; font-size: 0.88rem; color: var(--text-muted); font-style: italic; text-align: left; text-indent: 0; }
+
+    .note { 
+      margin: 32px 0; 
+      padding: 14px 18px; 
+      border-left: 4px solid #B00020; 
+      color: #B00020; 
+      background: rgba(176, 0, 32, 0.04); 
+      font-size: 0.92rem; 
+      border-radius: 0 8px 8px 0; 
+      text-indent: 0;
+      font-style: italic;
+    }
+
+    /* ===== FOOTER NAV ===== */
+    .pager { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+    .pager a { text-decoration: none; color: var(--text-dark); border: 1px solid var(--line); padding: 10px 20px; border-radius: 8px; background: #fff; font-weight: 500; display: inline-block; }
+
+    @media (max-width: 900px) {
+      .hero-row, .analysis-triple-images { flex-direction: column; grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-row">
+        <div class="hero-left">
+          <h1>Yu-Shan Lin</h1>
+          <p>Combining scientific insight and economic analysis to translate complex data into measurable, data-driven impact for sustainable business transformation 🌱</p>
+        </div>
+        <div class="hero-right">
+          <a href="mailto:yushan0989@gmail.com">Contact</a>
+          <span class="sep">|</span>
+          <a href="https://www.linkedin.com/in/yu-shan-lin" target="_blank">LinkedIn</a>
+          <span class="sep">|</span>
+          <a href="https://github.com/yushan0989" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#projects">Strategic Project Experience</a>
+        <span class="nav-sep">|</span>
+        <a href="#expertise">Professional Expertise</a>
+        <span class="nav-sep">|</span>
+        <a href="../index.html#thesis">Graduate Thesis</a>
+        <span class="nav-sep">|</span>
+        <a href="../index.html#about">About Me</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="project-container">
+    <h1>Lightning Signal Nowcasting</h1>
+    <div class="meta">Cross-Validation · Spatial Distribution · Experimental Forecasting · Severe Weather</div>
+
+    <h2>Project Description & Objective</h2>
+    <p>By monitoring intra-cloud (IC) lightning-jump signals from an advanced detection system, this project leverages <span class="emphasize">meteorological correlations</span> between IC activity and the onset of severe convective rainfall. This integration enhances weather guidance within a 30 km domain, providing a <span class="emphasize">semiconductor company</span> with actionable insights to safeguard <span class="emphasize">product yield</span> and <span class="emphasize">support economically informed decisions under weather-related risks</span>, while simultaneously enabling the client to develop specialized early-warning applications.</p>
+
+    <h2>Methods & Data</h2>
+    <p>The project utilizes high-resolution IC lightning data sourced via an international meteorological provider. To ensure consistency, the dataset was <span class="emphasize">cross-validated</span> against regional observations from Taiwan Power Company. Based on the client’s site coordinates, I analyzed lightning-jump signals across multiple spatial scales (5, 10, 20, and 30 km radii). This integrated approach serves as a critical indicator for forecasting extreme convective rainfall events and enhancing automated early warning systems.</p>
+
+    <h2>Key Deliverables</h2>
+   
+    <section>
+      <div class="analysis-triple-images">
+        <figure>
+          <img src="LS_1.png" alt="Spatial radius monitoring 5km">
+          <figcaption class="caption">Figure 1. 5km Radius Monitoring</figcaption>
+        </figure>
+        <figure>
+          <img src="LS_2.png" alt="Spatial radius monitoring 15km">
+          <figcaption class="caption">Figure 2. 15km Radius Monitoring</figcaption>
+        </figure>
+        <figure>
+          <img src="LS_3.png" alt="Spatial radius monitoring 30km">
+          <figcaption class="caption">Figure 3. 30km Radius Monitoring</figcaption>
+        </figure>
+      </div>
+      
+      <div class="analysis-text-full">
+        <p>The <span class="emphasize">spatial distribution</span> of detected lightning events is mapped across multiple concentric buffers relative to the facility (red triangle). This multi-scale monitoring allows for a lead-time advantage, as lightning activity typically intensifies before the peak of convective rainfall, providing a crucial window for operational adjustments.</p>
+      </div>
+    </section>
+
+    <div class="note">
+      <strong>Note:</strong> Out of respect for data privacy, only a high-level overview of the methodology and sanitized performance metrics are shared here.
+    </div>
+
+    <h2>Impact & Insights</h2>
+    <p>This project represents the first initiative in Taiwan to utilize intra-cloud lightning-jump signals for <span class="emphasize">predictive severe weather forecasting</span>. By shifting from traditional radar-only methods to advanced convective detection, the model offers a significant lead-time advantage for high-stakes manufacturing environments.</p>
+
+    <p>Following its successful implementation in the semiconductor industry to safeguard yield, the model has demonstrated strong cross-industry scalability. It has attracted interest from other <span class="emphasize">weather-sensitive sectors</span>—such as golf course management and large-scale outdoor events—for real-time safety and <span class="emphasize">operational planning</span>, proving the economic value of precision meteorological forecasting.</p>
+
+    <nav class="pager">
+      <a href="../index.html#projects">← Back to projects</a>
+    </nav>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar Energy Forecasting | Yu-Shan Lin</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🦦</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --deep-green: #3F4A3A;
+      --accent-green: #A8C686;
+      --bg-main: #FAFAF8;
+      --text-dark: #2B2B2B;
+      --text-light: #F5F5F5;
+      --text-muted: #6F6F6F;
+      --line: #D8D8D8;
+      --link-blue: #1540dd;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background: var(--bg-main); 
+      color: var(--text-dark); 
+      line-height: 1.7; 
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .container, .project-container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+    
+    /* ===== TYPOGRAPHY & EMPHASIS ===== */
+    h1 { font-size: 2.5rem; font-weight: 500; margin-bottom: 8px; }
+    h2 { 
+      margin-top: 28px; 
+      margin-bottom: 8px; 
+      font-size: 1.4rem; 
+      border-left: 4px solid var(--accent-green); 
+      padding-left: 12px;
+      color: var(--deep-green);
+    }
+    
+    p { margin-bottom: 12px; text-indent: 2em; text-align: left; }
+    .emphasize { color: var(--link-blue); font-weight: 500; letter-spacing: 0.01em; }
+
+    /* ===== HERO & NAV ===== */
+    .hero { background: var(--deep-green); color: var(--text-light); padding: 40px 0 26px; }
+    .hero-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; }
+    .hero-left p { font-size: 1.15rem; max-width: 850px; opacity: 0.95; text-indent: 0; }
+    .hero-right { margin-top: 35px; white-space: nowrap; font-size: 1rem; }
+    .hero-right a { color: var(--accent-green); text-decoration: none; font-weight: 500; }
+    .hero-right .sep { padding: 0 10px; opacity: 0.4; }
+
+    .nav-bar { border-bottom: 1px solid var(--line); background: #fff; position: sticky; top: 0; z-index: 1000; }
+    .nav-inner { display: flex; gap: 18px; padding: 14px 0; font-size: 1rem; flex-wrap: wrap; }
+    .nav-inner a { color: var(--text-muted); text-decoration: none; }
+    .nav-inner a:hover { color: var(--text-dark); }
+
+    /* ===== PROJECT CONTENT ===== */
+    .project-container { margin-top: 32px; padding-bottom: 60px; }
+    .meta { color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; }
+    
+    .analysis-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; margin: 24px 0; align-items: start; }
+    
+    .analysis-figure1 img { width: 100%; max-width: 900px; height: auto; display: block; border-radius: 4px; }
+    .analysis-inline-image { width: 100%; max-width: 500px; margin-top: 12px; display: block; }
+    .analysis-figure-full img { width: 100%; max-width: 1000px; height: auto; display: block; margin: 12px 0 8px 0; }
+
+    .caption { margin-top: 8px; font-size: 0.88rem; color: var(--text-muted); font-style: italic; text-align: left; text-indent: 0; }
+
+    .note { 
+      margin: 32px 0; 
+      padding: 14px 18px; 
+      border-left: 4px solid #B00020; 
+      color: #B00020; 
+      background: rgba(176, 0, 32, 0.04); 
+      font-size: 0.92rem; 
+      border-radius: 0 8px 8px 0; 
+      text-indent: 0;
+      font-style: italic;
+    }
+
+    /* ===== FOOTER NAV ===== */
+    .pager { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+    .pager a { text-decoration: none; color: var(--text-dark); border: 1px solid var(--line); padding: 10px 20px; border-radius: 8px; background: #fff; font-weight: 500; display: inline-block; }
+
+    @media (max-width: 900px) {
+      .hero-row, .analysis-grid { flex-direction: column; grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-row">
+        <div class="hero-left">
+          <h1>Yu-Shan Lin</h1>
+          <p>Combining scientific insight and economic analysis to translate complex data into measurable, data-driven impact for sustainable business transformation 🌱</p>
+        </div>
+        <div class="hero-right">
+          <a href="mailto:yushan0989@gmail.com">Contact</a>
+          <span class="sep">|</span>
+          <a href="https://www.linkedin.com/in/yu-shan-lin" target="_blank">LinkedIn</a>
+          <span class="sep">|</span>
+          <a href="https://github.com/yushan0989" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#projects">Strategic Project Experience</a>
+        <span class="nav-sep">|</span>
+        <a href="#expertise">Professional Expertise</a>
+        <span class="nav-sep">|</span>
+        <a href="../index.html#thesis">Graduate Thesis</a>
+        <span class="nav-sep">|</span>
+        <a href="../index.html#about">About Me</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="project-container">
+    <h1>Solar Energy Forecasting</h1>
+    <div class="meta">R Shiny · Machine Learning · Renewable Energy</div>
+
+    <h2>Project Description & Objective</h2>
+    <p>To enable clients to better manage short-term variability in solar generation, this project aimed at improving electricity dispatch, grid efficiency, and maintenance planning. By bridging the gap between raw meteorological data and actionable business decisions, the forecasting system provides energy operators with a reliable tool for real-time operational management.</p>
+
+    <h2>Methods & Data</h2>
+    <p>I implemented <span class="emphasize">linear regression</span> and <span class="emphasize">machine learning models</span> leveraging historical datasets including cloud cover, solar irradiance, and electricity production records. To make these insights accessible, I developed an <span class="emphasize">interactive R Shiny dashboard</span> that visualizes real-time forecasts alongside scheduled maintenance windows.</p>
+    
+    
+
+    <p>Beyond technical development, I led <span class="emphasize">monthly performance calibrations</span> and presented data-driven findings directly to clients. This ensured the models remained aligned with evolving operational goals and allowed for the continuous refinement of maintenance strategies based on predictive accuracy.</p>
+
+    <h2>Key Deliverables</h2>
+   
+    <section class="analysis-grid">
+      <figure class="analysis-figure1">
+        <img src="SE_case.png" alt="Daily power generation forecast">
+        <figcaption class="caption">Figure 1. Daily Forecast vs. Actual Generation Trends</figcaption>
+      </figure>
+      <div class="analysis-text">
+        <p style="text-indent: 0;"><strong>Figure 1</strong> displays the estimated daily power generation (Taipower data) alongside forecasts for 1-hour, 4-hour, and 24-hour lead times. The table below highlights the model's reliability, maintaining correlations above 0.97.</p>
+        <img src="SE_table.png" alt="Performance metrics" class="analysis-inline-image">
+      </div>
+    </section>
+
+    <section class="analysis-grid">
+      <figure class="analysis-figure1">
+        <img src="SE_prc.png" alt="Synoptic weather analysis">
+        <figcaption class="caption">Figure 2. Synoptic Weather Situation Analysis</figcaption>
+      </figure>
+      <div class="analysis-text">
+        <p style="text-indent: 0;">On 2 July, the model effectively captured cloud and rainfall variations associated with a broad low-pressure zone and Typhoon Fung-wong. Despite large-scale meteorological volatility, the forecast errors remained low across all lead times, proving the model's robustness in extreme weather scenarios.</p>
+      </div>
+    </section>
+
+    <div class="single-figure">
+      <figure class="analysis-figure-full">
+        <img src="SE_facet.png" alt="Monthly performance overview">
+        <figcaption class="caption">Figure 3. Monthly Overview: Real-time Estimation vs. Actual Hydropower Generation</figcaption>
+      </figure>
+    </div>
+
+    <div class="note">
+      <strong>Note:</strong> Out of respect for data privacy, only a high-level overview of the methodology and sanitized performance metrics are shared here.
+    </div>
+
+    <h2>Impact & Insights</h2>
+    <p>The forecasting model achieved high stability with a <span class="emphasize">monthly nMAE of &lt;5%</span>. This level of precision provides energy operators with the confidence needed for effective electricity dispatch and preventive maintenance. By successfully translating meteorological variables into grid-efficiency metrics, the project demonstrated how predictive analytics can mitigate the risks associated with renewable energy variability.</p>
+
+    <nav class="pager">
+      <a href="../index.html#projects">← Back to projects</a>
+    </nav>
+  </main>
+
+</body>
+</html>

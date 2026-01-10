@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typhoon Forecast Visualisation | Yu-Shan Lin</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🦦</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --deep-green: #3F4A3A;
+      --accent-green: #A8C686;
+      --bg-main: #FAFAF8;
+      --text-dark: #2B2B2B;
+      --text-light: #F5F5F5;
+      --text-muted: #6F6F6F;
+      --line: #D8D8D8;
+      --link-blue: #1540dd;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background: var(--bg-main); 
+      color: var(--text-dark); 
+      line-height: 1.7; 
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .container, .project-container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+    
+    /* ===== TYPOGRAPHY & EMPHASIS ===== */
+    h1 { font-size: 2.5rem; font-weight: 500; margin-bottom: 8px; }
+    h2 { 
+      margin-top: 28px; /* 縮小間距 */
+      margin-bottom: 8px; /* 縮小間距 */
+      font-size: 1.4rem; 
+      border-left: 4px solid var(--accent-green); 
+      padding-left: 12px;
+      color: var(--deep-green);
+    }
+    
+    p { margin-bottom: 12px; text-indent: 2em; text-align: left; } /* 取消左右對齊，縮小下邊距 */
+    
+    .emphasize { 
+      color: var(--link-blue); 
+      font-weight: 500; 
+      letter-spacing: 0.01em; 
+    }
+
+    /* ===== HEADER & NAVIGATION ===== */
+    .hero { background: var(--deep-green); color: var(--text-light); padding: 40px 0 26px; }
+    .hero-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; }
+    .hero-left p { font-size: 1.15rem; max-width: 850px; opacity: 0.95; text-indent: 0; margin-bottom: 0; }
+    .hero-right { margin-top: 35px; white-space: nowrap; font-size: 1rem; }
+    .hero-right a { color: var(--accent-green); text-decoration: none; font-weight: 500; }
+    .hero-right .sep { padding: 0 10px; opacity: 0.4; }
+
+    .nav-bar { border-bottom: 1px solid var(--line); background: #fff; position: sticky; top: 0; z-index: 1000; }
+    .nav-inner { display: flex; gap: 18px; padding: 12px 0; font-size: 1rem; flex-wrap: wrap; }
+    .nav-inner a { color: var(--text-muted); text-decoration: none; }
+    .nav-inner a:hover { color: var(--text-dark); }
+
+    /* ===== CONTENT STRUCTURE ===== */
+    .project-container { margin-top: 32px; padding-bottom: 60px; }
+    .meta { color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; }
+    
+    .analysis-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; margin: 24px 0; align-items: start; }
+    .analysis-text-full { margin-top: 12px; }
+
+    .analysis-images { display: flex; gap: 24px; align-items: flex-end; margin-bottom: 16px; }
+    .analysis-images img { height: auto; max-height: 380px; width: auto; display: block; margin: 0; } /* 移除陰影與置中限制 */
+    
+    .single-figure img { width: 100%; max-width: 600px; height: auto; display: block; } /* 移除陰影 */
+    
+    .caption { margin-top: 8px; font-size: 0.88rem; color: var(--text-muted); font-style: italic; text-align: left; text-indent: 0; } /* 取消置中 */
+
+    .note { 
+      margin: 32px 0; 
+      padding: 14px 18px; 
+      border-left: 4px solid #B00020; 
+      color: #B00020; 
+      background: rgba(176, 0, 32, 0.04); 
+      font-size: 0.92rem; 
+      border-radius: 0 8px 8px 0; 
+      text-indent: 0;
+    }
+
+    /* ===== FOOTER NAV ===== */
+    .pager { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+    .pager a { text-decoration: none; color: var(--text-dark); border: 1px solid var(--line); padding: 10px 20px; border-radius: 8px; background: #fff; font-weight: 500; }
+
+    @media (max-width: 900px) {
+      .hero-row, .analysis-grid, .analysis-images { flex-direction: column; grid-template-columns: 1fr; }
+      .analysis-images img { width: 100%; max-height: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-row">
+        <div class="hero-left">
+          <h1>Yu-Shan Lin</h1>
+          <p>Combining scientific insight and economic analysis to translate complex data into measurable, data-driven impact for sustainable business transformation 🌱</p>
+        </div>
+        <div class="hero-right">
+          <a href="mailto:yushan0989@gmail.com">Contact</a>
+          <span class="sep">|</span>
+          <a href="https://www.linkedin.com/in/yu-shan-lin" target="_blank">LinkedIn</a>
+          <span class="sep">|</span>
+          <a href="https://github.com/yushan0989" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#projects">Strategic Project Experience</a>
+        <span class="nav-sep">|</span>
+        <a href="#expertise">Professional Expertise</a>
+        <span class="nav-sep">|</span>
+        <a href="../index.html#thesis">Graduate Thesis</a>
+        <span class="nav-sep">|</span>
+        <a href="../index.html#about">About Me</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="project-container">
+    <h1>Typhoon Forecast Visualisation</h1>
+    <div class="meta">API Integration · Geospatial Visualization · Interactive Dashboard · Workflow Optimization</div>
+
+    <h2>Project Description & Objective</h2>
+    <p>Developed an <span class="emphasize">interactive geospatial dashboard</span> to visualize typhoon trajectories, providing critical decision support for Emergency Operations Centers. The tool features an interface where users can manually adjust the path and wind radii, significantly <span class="emphasize">increasing workflow efficiency</span> for generating specialized graphs for client reports. By translating complex meteorological data into clear visual insights, the platform allows users to rapidly assess the potential impact of typhoons on specific geographic regions.</p>
+
+    <h2>Methods & Data</h2>
+    <p>This project utilises real-time meteorological datasets integrated from international organisations via <span class="emphasize">APIs</span>. The raw data undergoes a rigorous <span class="emphasize">cleaning</span> and <span class="emphasize">standardisation</span> process to ensure consistency across various text and numerical formats. The platform is built using <span class="emphasize">R Shiny</span> and leverages the Google Maps <span class="emphasize">Geocoding API</span> for high-precision geospatial mapping. Key technical features include the ability to edit typhoon parameters like latitude, longitude, and wind radii for dynamic path adjustments and detailed forecast analysis.</p>
+
+    <h2>Key Deliverables</h2>
+   
+    <section>
+      <div class="analysis-images">
+        <figure>
+          <img src="TY_1.png" alt="CWA Official Forecast Track">
+          <figcaption class="caption">Figure 1. Official Forecast Track and Warning Criteria</figcaption>
+        </figure>
+        <figure>
+          <img src="TY_2.png" alt="Multi-Agency Typhoon Tracks">
+          <figcaption class="caption">Figure 2. Multi-Model Tracks</figcaption>
+        </figure>
+      </div>
+      
+      <div class="analysis-text-full">
+        <p>The red dots mark the eye of the storm, while the light brown and yellow circles show the reach of Force 7 and Force 10 winds. I included a blue dashed line 100 km off the coast as a key reference for Sea Typhoon Warnings, which are triggered if those wind circles are expected to hit that zone within 24 hours.</p>
+        <p><strong>Figure 1</strong> displays the CWA official track, while <strong>Figure 2</strong> illustrates tracks from various Asian agencies like JMA and KMA. Users can display specific subsets of agency tracks or adjust forecast intervals (8, 12, or 24-hour) to meet professional reporting requirements.</p>
+      </div>
+    </section>
+
+    <section class="analysis-grid">
+      <div class="single-figure">
+        <figure>
+          <img src="TY_3.png" alt="Interactive dashboard customisation">
+          <figcaption class="caption">Figure 3. Interactive Dashboard Interface</figcaption>
+        </figure>
+      </div>
+      <div class="analysis-text">
+        <p><strong>Figure 3</strong> demonstrates the dashboard's flexibility in managing multiple typhoons in the Pacific. Users can toggle storm visibility to isolate specific systems or use the <strong>manual override feature</strong> to fine-tune the storm centre by inputting precise coordinates based on the latest observational data.</p>
+      </div>
+    </section>
+
+    <div class="note">
+      <strong>Note:</strong> Out of respect for data privacy, only a high-level overview of the methodology and sanitized performance metrics are shared here.
+    </div>
+
+    <h2>Impact & Insights</h2>
+    <p>Leveraging my <span class="emphasize">cross-departmental background</span>, I initiated this project to replace manual meteorological graph building. By <span class="emphasize">integrating real-time API data</span>, I automated image generation while retaining professional flexibility. This initiative inspired further collaborations, such as heatwave alert tools, significantly enhancing reporting speed and accuracy based on firsthand operational experience.</p>
+
+    <nav class="pager">
+      <a href="../index.html#projects">← Back to projects</a>
+    </nav>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather–Consumer Behaviour | Yu-Shan Lin</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🦦</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --deep-green: #3F4A3A;
+      --accent-green: #A8C686;
+      --bg-main: #FAFAF8;
+      --text-dark: #2B2B2B;
+      --text-light: #F5F5F5;
+      --text-muted: #6F6F6F;
+      --line: #D8D8D8;
+      --link-blue: #1540dd;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background: var(--bg-main); 
+      color: var(--text-dark); 
+      line-height: 1.7; 
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .container, .project-container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+    
+    /* ===== TYPOGRAPHY & EMPHASIS ===== */
+    h1 { font-size: 2.5rem; font-weight: 500; margin-bottom: 8px; }
+    h2 { 
+      margin-top: 28px; 
+      margin-bottom: 8px; 
+      font-size: 1.4rem; 
+      border-left: 4px solid var(--accent-green); 
+      padding-left: 12px;
+      color: var(--deep-green);
+    }
+    
+    p { margin-bottom: 12px; text-indent: 2em; text-align: left; }
+    .emphasize { color: var(--link-blue); font-weight: 500; letter-spacing: 0.01em; }
+
+    /* ===== HERO & NAV ===== */
+    .hero { background: var(--deep-green); color: var(--text-light); padding: 40px 0 26px; }
+    .hero-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; }
+    .hero-left p { font-size: 1.15rem; max-width: 850px; opacity: 0.95; text-indent: 0; }
+    .hero-right { margin-top: 35px; white-space: nowrap; font-size: 1rem; }
+    .hero-right a { color: var(--accent-green); text-decoration: none; font-weight: 500; }
+    .hero-right .sep { padding: 0 10px; opacity: 0.4; }
+
+    .nav-bar { border-bottom: 1px solid var(--line); background: #fff; position: sticky; top: 0; z-index: 1000; }
+    .nav-inner { display: flex; gap: 18px; padding: 14px 0; font-size: 1rem; flex-wrap: wrap; }
+    .nav-inner a { color: var(--text-muted); text-decoration: none; }
+    .nav-inner a:hover { color: var(--text-dark); }
+
+    /* ===== PROJECT CONTENT ===== */
+    .project-container { margin-top: 32px; padding-bottom: 60px; }
+    .meta { color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; }
+    
+    /* Two Images Grid */
+    .analysis-images { display: flex; gap: 24px; margin-bottom: 16px; }
+    .analysis-images figure { flex: 1; margin: 0; }
+    .analysis-images img { height: auto; width: 100%; border-radius: 4px; display: block; }
+
+    .caption { margin-top: 8px; font-size: 0.88rem; color: var(--text-muted); font-style: italic; text-align: left; text-indent: 0; }
+
+    .note { 
+      margin: 32px 0; 
+      padding: 14px 18px; 
+      border-left: 4px solid #B00020; 
+      color: #B00020; 
+      background: rgba(176, 0, 32, 0.04); 
+      font-size: 0.92rem; 
+      border-radius: 0 8px 8px 0; 
+      text-indent: 0;
+      font-style: italic;
+    }
+
+    /* ===== FOOTER NAV ===== */
+    .pager { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+    .pager a { text-decoration: none; color: var(--text-dark); border: 1px solid var(--line); padding: 10px 20px; border-radius: 8px; background: #fff; font-weight: 500; display: inline-block; }
+
+    @media (max-width: 900px) {
+      .hero-row, .analysis-triple-images { flex-direction: column; grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-row">
+        <div class="hero-left">
+          <h1>Yu-Shan Lin</h1>
+          <p>Combining scientific insight and economic analysis to translate complex data into measurable, data-driven impact for sustainable business transformation 🌱</p>
+        </div>
+        <div class="hero-right">
+          <a href="mailto:yushan0989@gmail.com">Contact</a>
+          <span class="sep">|</span>
+          <a href="https://www.linkedin.com/in/yu-shan-lin" target="_blank">LinkedIn</a>
+          <span class="sep">|</span>
+          <a href="https://github.com/yushan0989" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav-bar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#projects">Strategic Project Experience</a>
+        <span class="nav-sep">|</span>
+        <a href="#expertise">Professional Expertise</a>
+        <span class="nav-sep">|</span>
+        <a href="../index.html#thesis">Graduate Thesis</a>
+        <span class="nav-sep">|</span>
+        <a href="../index.html#about">About Me</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="project-container">
+    <h1>Weather–Consumer Behaviour</h1>
+    <div class="meta">Sampling Validation · Statistical Inference · Business Strategy</div>
+
+    <h2>Project Description & Objective</h2>
+    <p>Developed a data-driven consumer behavior analysis for a strategic retail partner, utilizing a large-scale electronic invoice dataset to decode the drivers of consumer demand. 
+      The primary objective was to move beyond raw sales figures by establishing a robust correlation between meteorological fluctuations, such as temperature and precipitation, 
+      and the <span class="emphasize">consumption patterns</span> of specific convenience store products, such as Japanese Oden. 
+      By quantifying how <span class="emphasize">weather sensitivity</span> varies by region, the project gave the retailer practical insights to improve 
+      <span class="emphasize">inventory management</span> and <span class="emphasize">demand forecasting</span>.</p>
+
+    <h2>Methods & Data</h2>
+    <p>The analysis utilized a comprehensive dataset of over 9.2 million electronic invoice records from 2018. 
+      To ensure the reliability of the findings, I first conducted a sampling validation by comparing the geographic distribution of the data against official Ministry of Finance statistics, confirming the dataset’s representative nature across Taiwan.<br>
+      
+      <p>After identifying and filtering out anomalous high-frequency users (e.g., single-day consumption exceeding 60 transactions), 
+      I segmented the data to isolate weather-sensitive products. I employed Two Sample t-tests and Regression to analyze the impact of environmental variables. 
+      To account for <span class="emphasize">regional psychological thresholds</span>, I redefined "low temperature" using a 20th percentile threshold specific to each city (19°C for high-latitude city and 23°C for low-latitude city), 
+      ensuring the analysis reflected local consumer perceptions of "cold" weather.
+      </p>
+    </p>
+
+    <h2>Key Deliverables</h2>
+   
+    <section>
+            <div class="analysis-images">
+        <figure style="flex: 0.98">
+          <img src="CB_data.png" alt="Spatial Distribution" style="max-width: 98%";>
+          <figcaption class="caption">Figure 1. Number of electronic invoices from Ministry of Finance statistics vs. sample size of electronic invoices.</figcaption>
+        </figure>
+        <figure style="flex: 1.05">
+          <img src="CB_correlation.png" alt="Correlation" style="max-width: 105%";>
+          <figcaption class="caption">Figure 2. Regression Analysis of Observed Temperature vs. Daily Sales Volume.</figcaption>
+        </figure>
+      </div>
+      <div class="analysis-text-full">
+        <p><strong>Figure 1</strong> demonstrates the initial validation phase, ensuring the representativeness of the sample.
+          <strong>Figure 2</strong>, a <span class="emphasize">regression analysis</span>, establishes a significant negative correlation between observed temperature and daily sales volume, 
+          illustrating a marked non-linear increase in demand as temperatures drop. With a statistical significance of <i>p</i> &lt; 0.001, 
+          these findings confirm temperature as a primary driver of sales volatility, providing a robust empirical foundation for optimizing inventory and retail demand forecasting.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="analysis-images">
+        <figure>
+          <img src="CB_low_lat.png" alt="low-lat boxplot";>
+          <figcaption class="caption">Figure 3. Boxplot of Temperature and Sales Volume in a Low-Latitude City</figcaption>
+        </figure>
+        <figure>
+          <img src="CB_high_lat.png" alt="high-lat boxplot";>
+          <figcaption class="caption">Figure 4. Boxplot of Temperature and Sales Volume in a High-Latitude City.</figcaption>
+        </figure>
+      </div>
+      <div class="analysis-text-full">
+        <p><strong>Figure 3</strong> utilizes a regional 20th percentile threshold of 19°C to identify a significant surge in sales volume during low-temperature events. 
+          In high-latitude cities, the mean sales volume increased from 20 to 28 units when this local threshold was met.
+          This behavior is statistically significant (<i>p</i> &lt; 0.001), confirming that regional cooling serves as a major driver of consumer demand.
+          confirming that regional cooling serves as a major driver for consumer consumer demand.
+          <strong>Figure 4</strong>, on the other hand, shows in low-latitude cities, where the threshold was adjusted to 23°C to account for local climate perceptions.
+          Despite the warmer baseline, average sales volume rose from 11 to 14 units during low-temperature periods. 
+          While absolute volume is lower than in the north, both regions demonstrate a consistent 50% growth in sales when local thresholds are triggered. 
+          This results in a statistically significant correlation <i>p</i> &lt; 0.001 between regional cooling and retail demand. 
+        </p>
+      </div>
+    </section>
+
+    <div class="note">
+      <strong>Note:</strong> Out of respect for data privacy, only a high-level overview of the methodology and sanitized performance metrics are shared here.
+    </div>
+
+    <h2>Impact & Insights</h2>
+    <p>This project highlighted a critical nuance in retail analytics: <span class="emphasize">consumer perception</span> is relative. 
+      By discovering that a 50% sales surge in both high-latitude and low-latitude cities was triggered by different temperature thresholds, 
+      I demonstrated that localized environmental benchmarks are more effective than universal ones for <span class="emphasize">national supply chain planning</span>.</p>
+
+    <p>Furthermore, the analysis successfully differentiated between "weather-sensitive" and "weather-neutral" products (such as pudding and cold noodles), 
+      allowing the client to prioritize which SKUs require weather-contingent marketing. 
+      This experience refined my ability to translate abstract <span class="emphasize">statistical p-values</span> into concrete <span class="emphasize">commercial strategies</span>, 
+      bridging the gap between data science and retail operations.</p>
+
+    <nav class="pager">
+      <a href="../index.html#projects">← Back to projects</a>
+    </nav>
+  </main>
+
+</body>
+</html>

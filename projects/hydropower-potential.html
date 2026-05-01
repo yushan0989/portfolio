@@ -1,227 +1,566 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hydropower Potential Investment | Yu-Shan Lin</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hydropower Potential Investment — Yu-Shan Lin</title>
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🦦</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bone:        #f4f1ea;
+    --bone-soft:   #ece7dc;
+    --paper:       #fbf9f3;
+    --ink:         #0e1f24;
+    --ink-2:       #2c4148;
+    --ink-3:       #5b7079;
+    --ink-4:       #94a4ac;
+    --kelp:        oklch(0.62 0.10 165);
+    --kelp-deep:   oklch(0.46 0.10 170);
+    --kelp-soft:   oklch(0.92 0.04 160);
+    --tide:        oklch(0.66 0.09 210);
+    --tide-deep:   oklch(0.42 0.08 215);
+    --tide-soft:   oklch(0.92 0.03 210);
+    --foam:        oklch(0.96 0.02 180);
+    --coral:       oklch(0.72 0.13 35);
+    --line:        rgba(14,31,36,0.10);
+    --line-2:      rgba(14,31,36,0.18);
+    --serif: 'Newsreader', Georgia, serif;
+    --sans:  'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono:  'JetBrains Mono', ui-monospace, monospace;
+  }
 
-  <style>
-    :root {
-      --deep-green: #3F4A3A;
-      --accent-green: #A8C686;
-      --bg-main: #FAFAF8;
-      --text-dark: #2B2B2B;
-      --text-light: #F5F5F5;
-      --text-muted: #6F6F6F;
-      --line: #D8D8D8;
-      --link-blue: #1540dd;
-    }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { 
-      font-family: 'Inter', sans-serif; 
-      background: var(--bg-main); 
-      color: var(--text-dark); 
-      line-height: 1.7; 
-      -webkit-font-smoothing: antialiased;
-    }
-    
-    .container, .project-container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
-    
-    /* ===== TYPOGRAPHY & EMPHASIS ===== */
-    h1 { font-size: 2.5rem; font-weight: 500; margin-bottom: 8px; }
-    h2 { 
-      margin-top: 28px; 
-      margin-bottom: 8px; 
-      font-size: 1.4rem; 
-      border-left: 4px solid var(--accent-green); 
-      padding-left: 12px;
-      color: var(--deep-green);
-    }
-    
-    p { margin-bottom: 12px; text-indent: 2em; text-align: left; }
-    .emphasize { color: var(--link-blue); font-weight: 500; letter-spacing: 0.01em; }
+  body {
+    background: var(--bone);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
 
-    /* ===== HERO & NAV ===== */
-    .hero { background: var(--deep-green); color: var(--text-light); padding: 40px 0 26px; }
-    .hero-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; }
-    .hero-left p { font-size: 1.15rem; max-width: 850px; opacity: 0.95; text-indent: 0; }
-    .hero-right { margin-top: 35px; white-space: nowrap; font-size: 1rem; }
-    .hero-right a { color: var(--accent-green); text-decoration: none; font-weight: 500; }
-    .hero-right .sep { padding: 0 10px; opacity: 0.4; }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.04;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 180px;
+  }
 
-    .nav-bar { border-bottom: 1px solid var(--line); background: #fff; position: sticky; top: 0; z-index: 1000; }
-    .nav-inner { display: flex; gap: 18px; padding: 14px 0; font-size: 1rem; flex-wrap: wrap; }
-    .nav-inner a { color: var(--text-muted); text-decoration: none; }
-    .nav-inner a:hover { color: var(--text-dark); }
+  #ocean-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  #app { position: relative; z-index: 1; }
 
-    /* ===== PROJECT CONTENT ===== */
-    .project-container { margin-top: 32px; padding-bottom: 60px; }
-    .meta { color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; }
-    
-    .analysis-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; margin: 24px 0; align-items: start; }
-    .analysis-text-full { margin-top: 12px; }
+  ::selection { background: var(--kelp-soft); color: var(--ink); }
 
-    /* Image Styles */
-    .analysis-images { display: flex; gap: 24px; margin-bottom: 16px; }
-    .analysis-images figure { flex: 1; margin: 0; }
-    .analysis-images img { height: auto; width: 100%; border-radius: 4px; display: block; }
-    .single-figure img { width: 100%; max-width: 1000px; height: auto; display: block; margin: 12px 0 8px 0; }
+  .mono { font-family: var(--mono); font-variant-ligatures: none; }
+  .serif { font-family: var(--serif); font-optical-sizing: auto; }
 
-    .caption { margin-top: 8px; font-size: 0.88rem; color: var(--text-muted); font-style: italic; text-align: left; text-indent: 0; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow .tick { width: 22px; height: 1px; background: currentColor; opacity: 0.5; }
 
-    .note { 
-      margin: 32px 0; 
-      padding: 14px 18px; 
-      border-left: 4px solid #B00020; 
-      color: #B00020; 
-      background: rgba(176, 0, 32, 0.04); 
-      font-size: 0.92rem; 
-      border-radius: 0 8px 8px 0; 
-      text-indent: 0;
-      font-style: italic;
-    }
+  .glass {
+    background: rgba(251,249,243,0.55);
+    backdrop-filter: blur(14px) saturate(1.05);
+    -webkit-backdrop-filter: blur(14px) saturate(1.05);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.7) inset, 0 30px 60px -28px rgba(14,31,36,0.18), 0 6px 16px -8px rgba(14,31,36,0.10);
+    border-radius: 18px;
+  }
 
-    /* ===== FOOTER NAV ===== */
-    .pager { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
-    .pager a { text-decoration: none; color: var(--text-dark); border: 1px solid var(--line); padding: 10px 20px; border-radius: 8px; background: #fff; font-weight: 500; display: inline-block; }
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal.in { opacity: 1; transform: none; }
 
-    @media (max-width: 900px) {
-      .hero-row, .analysis-grid, .analysis-images { flex-direction: column; grid-template-columns: 1fr; }
-    }
-  </style>
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 11px 20px; border-radius: 999px;
+    font-family: var(--sans); font-size: 13px; font-weight: 500;
+    letter-spacing: 0.01em; text-decoration: none; cursor: pointer;
+    border: 1px solid transparent; white-space: nowrap;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn .arrow { transition: transform 0.25s; display: inline-block; }
+  .btn:hover .arrow { transform: translate(2px, -2px); }
+
+  .btn-primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .btn-primary:hover { background: var(--kelp-deep); border-color: var(--kelp-deep); box-shadow: 0 8px 24px -10px var(--kelp-deep); }
+
+  .btn-ghost { background: rgba(255,255,255,0.45); color: var(--ink-2); border-color: var(--line-2); backdrop-filter: blur(8px); }
+  .btn-ghost:hover { background: rgba(255,255,255,0.85); color: var(--ink); }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(14,31,36,0.18); border-radius: 999px; border: 2px solid var(--bone); }
+
+  #cursor-blob {
+    position: fixed; top: 0; left: 0;
+    width: 110px; height: 110px; border-radius: 50%;
+    background: radial-gradient(circle at center, oklch(0.85 0.10 175 / 0.30), oklch(0.85 0.10 175 / 0) 60%);
+    pointer-events: none; z-index: 0;
+    transform: translate(-50%,-50%); transition: opacity 0.4s; opacity: 0;
+    will-change: transform; filter: blur(8px);
+  }
+  body.cursor-on #cursor-blob { opacity: 1; }
+  .fig-img { background: rgba(255,255,255,0.7); border-radius: 12px; overflow: hidden; border: 1px solid rgba(14,31,36,0.10); }
+  .fig-img img { width: 100%; display: block; }
+  .fig-cap { font-size: 13px; color: #94a4ac; font-style: italic; margin-top: 8px; line-height: 1.5; }
+  .fig-body { font-size: 15px; line-height: 1.75; color: #2c4148; }
+  .fig-body p { margin-bottom: 12px; }
+  .fig-body strong { color: #0e1f24; }
+  @media (max-width: 800px) { .fig-row-2, .fig-row-eq { grid-template-columns: 1fr !important; } }
+</style>
 </head>
-
 <body>
 
-  <header class="hero">
-    <div class="container">
-      <div class="hero-row">
-        <div class="hero-left">
-          <h1>Yu-Shan Lin</h1>
-          <p>Combining scientific insight and economic analysis to translate complex data into measurable, data-driven impact for sustainable business transformation 🌱</p>
-        </div>
-        <div class="hero-right">
-          <a href="mailto:yushan0989@gmail.com">Contact</a>
-          <span class="sep">|</span>
-          <a href="https://www.linkedin.com/in/yu-shan-lin" target="_blank">LinkedIn</a>
-          <span class="sep">|</span>
-          <a href="https://github.com/yushan0989" target="_blank">GitHub</a>
-        </div>
-      </div>
-    </div>
-  </header>
+<canvas id="ocean-bg"></canvas>
+<div id="cursor-blob"></div>
+<div id="app"></div>
 
-  <nav class="nav-bar">
-    <div class="container">
-      <div class="nav-inner">
-        <a href="../index.html#projects">Strategic Project Experience</a>
-        <span class="nav-sep">|</span>
-        <a href="../index.html#expertise">Professional Expertise</a>
-        <span class="nav-sep">|</span>
-        <a href="../index.html#thesis">Graduate Thesis</a>
-        <span class="nav-sep">|</span>
-        <a href="../index.html#about">About Me</a>
-      </div>
-    </div>
-  </nav>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
-  <main class="project-container">
-    <h1>Hydropower Potential Investment</h1>
-    <div class="meta">Python · Climate Scenario · Hindcasting · Long-term Climate Forecasts</div>
+<script>
+(function () {
+  const canvas = document.getElementById('ocean-bg');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W=0,H=0,DPR=Math.min(window.devicePixelRatio||1,2);
+  let mouseX=0.5,mouseY=0.4,scrollY=0,t=0,lastFrame=0;
 
-    <h2>Project Description & Objective</h2>
-    <p>Developed a strategic assessment for a Tier-1 manufacturing partner within a global consumer electronics supply chain, driven by the parent company's ambitious mandate to achieve <span class="emphasize">carbon neutrality</span> by 2030. 
-       The primary objective was to translate complex climate-scenario data into insightful <span class="emphasize">energy yield proxies</span>, enabling the client to make informed decisions regarding <span class="emphasize">capital investment</span> and capacity planning for the next several decades.</p>
+  function resize() {
+    W=window.innerWidth; H=window.innerHeight;
+    canvas.width=W*DPR; canvas.height=H*DPR;
+    canvas.style.width=W+'px'; canvas.style.height=H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  resize();
+  window.addEventListener('resize',resize);
+  window.addEventListener('mousemove',(e)=>{mouseX=e.clientX/W;mouseY=e.clientY/H;});
+  window.addEventListener('scroll',()=>{scrollY=window.scrollY;},{passive:true});
 
-    <h2>Methods & Data</h2>
-    <p>The analysis followed a rigorous four-stage framework to ensure the reliability of long-term energy projections. 
-      First, I performed a <span class="emphasize">statistical validation</span> to confirm the high positive correlation between regional precipitation and historical output. 
-      After selecting the optimal climate models, I gridded the meteorological data to align with the specific coordinates of the client’s sites.</p>
+  function hash(x,y){const s=Math.sin(x*374.123+y*219.317)*43758.5453;return s-Math.floor(s);}
+  function smooth(t){return t*t*(3-2*t);}
+  function vnoise(x,y){
+    const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
+    const a=hash(xi,yi),b=hash(xi+1,yi),c=hash(xi,yi+1),d=hash(xi+1,yi+1);
+    const u=smooth(xf),v=smooth(yf);
+    return a*(1-u)*(1-v)+b*u*(1-v)+c*(1-u)*v+d*u*v;
+  }
+  function fbm(x,y){let v=0,amp=0.5,freq=1;for(let i=0;i<4;i++){v+=vnoise(x*freq,y*freq)*amp;amp*=0.5;freq*=2;}return v;}
 
-    <p><strong>Machine Learning & Backtesting:</strong>
-    Using a 20-year historical dataset, I employed a <span class="emphasize">split-window validation (hindcasting)</span> technique to train and 
-    test multiple <span class="emphasize">machine-learning</span> regression models. The model with the lowest MAE was then selected to simulate yields across four RCP scenarios (2.6, 4.5, 6.0, and 8.5).</p>
+  function draw(){
+    const now=performance.now();
+    if(now-lastFrame<33){requestAnimationFrame(draw);return;}
+    lastFrame=now; t+=0.0014;
+    const g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#f6f3ec');g.addColorStop(0.55,'#eef0e8');g.addColorStop(1,'#e6ecea');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    const cols=80,rows=Math.round(cols*(H/W)),cw=W/cols,ch=H/rows;
+    const sf=scrollY*0.0008,mx=(mouseX-0.5)*0.6,my=(mouseY-0.5)*0.6;
+    const levels=[0.30,0.40,0.50,0.58,0.66,0.74];
+    const colors=['rgba(20,90,90,0.04)','rgba(20,90,90,0.06)','rgba(20,90,90,0.08)','rgba(35,110,100,0.10)','rgba(45,120,110,0.12)','rgba(55,130,115,0.14)'];
+    const field=new Float32Array((cols+1)*(rows+1));
+    for(let y=0;y<=rows;y++)for(let x=0;x<=cols;x++)field[y*(cols+1)+x]=fbm(x/cols*3+t+mx,y/rows*3+sf+my);
+    ctx.lineWidth=1; ctx.lineCap='round';
+    for(let li=0;li<levels.length;li++){
+      const level=levels[li];
+      ctx.strokeStyle=colors[li];
+      ctx.beginPath();
+      for(let y=0;y<rows;y++){
+        for(let x=0;x<cols;x++){
+          const a=field[y*(cols+1)+x],b=field[y*(cols+1)+x+1],c=field[(y+1)*(cols+1)+x+1],d=field[(y+1)*(cols+1)+x];
+          let idx=0;
+          if(a>level)idx|=1;if(b>level)idx|=2;if(c>level)idx|=4;if(d>level)idx|=8;
+          if(idx===0||idx===15)continue;
+          const px=x*cw,py=y*ch,lerp=(v1,v2)=>(level-v1)/(v2-v1);
+          const top=[px+cw*lerp(a,b),py],right=[px+cw,py+ch*lerp(b,c)],bottom=[px+cw*lerp(d,c),py+ch],left=[px,py+ch*lerp(a,d)];
+          const seg=(p1,p2)=>{ctx.moveTo(p1[0],p1[1]);ctx.lineTo(p2[0],p2[1]);};
+          switch(idx){
+            case 1:case 14:seg(left,top);break;case 2:case 13:seg(top,right);break;
+            case 3:case 12:seg(left,right);break;case 4:case 11:seg(right,bottom);break;
+            case 5:seg(left,top);seg(right,bottom);break;case 6:case 9:seg(top,bottom);break;
+            case 7:case 8:seg(left,bottom);break;case 10:seg(left,bottom);seg(top,right);break;
+          }
+        }
+      }
+      ctx.stroke();
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
 
-    <p>This approach allowed for <span class="emphasize">time-scale alignment</span> between historical records and CMIP6 projections, 
-      providing climate scenario interpretation that translates raw data into clear <span class="emphasize">risk metrics</span> for strategic planning. 
-      This ensured the client’s renewable energy strategy accounted for climate volatility and long-term investment resilience.</p>
+  const blob=document.getElementById('cursor-blob');
+  let bx=window.innerWidth/2,by=window.innerHeight/2,tx=bx,ty=by;
+  document.addEventListener('mousemove',(e)=>{tx=e.clientX;ty=e.clientY;document.body.classList.add('cursor-on');});
+  function tickBlob(){bx+=(tx-bx)*0.12;by+=(ty-by)*0.12;if(blob)blob.style.transform=`translate(${bx}px,${by}px) translate(-50%,-50%)`;requestAnimationFrame(tickBlob);}
+  tickBlob();
+})();
+</script>
 
-    <h2>Key Deliverables</h2>
+<script type="text/babel">
+const { useEffect, useState } = React;
 
-    <section>
-      <div class="analysis-images">
-        <figure style="flex: 0.95">
-          <img src="../images/HP_correlation.png" alt="Precipitation vs Electricity Correlation" style="max-width: 95";>
-          <figcaption class="caption">Figure 1. Statistical correlation between observed precipitation and electricity generation.</figcaption>
-        </figure>
-        <figure style="flex: 1.20">
-          <img src="../images/HP_lagged.png" alt="Lagged Hydrological Response" style="max-width: 120%";>
-          <figcaption class="caption">Figure 2. Time-lagged correlation analysis reflecting the delay in streamflow accumulation.</figcaption>
-        </figure>
-      </div>
-      <div class="analysis-text-full">
-        <p><strong>Figure 1</strong> demonstrate the initial validation phase. 
-          By establishing a strong statistical link between meteorological inputs and energy output, 
-          the model achieved a high degree of fit during the historical training period, ensuring the baseline for future projections was robust.
-          <strong>Figure 2</strong> highlights a critical technical deliverable: the time-lagged correlation. Through iterative testing of various monthly moving averages, I identified that a three-month moving average (3-MMA) most effectively captures the lagged relationship between rainfall and power generation. 
-          Unlike solar energy, hydropower yields are dependent on catchment accumulation time; accounting for this lag improved model accuracy significantly. 
-        </p>
-      </div>
-    </section>
+function IconArrow({ size = 14 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="none">
+      <path d="M3 13 L13 3 M6 3 L13 3 L13 10" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
 
-    <section>
-      <div class="analysis-images">
-        <figure>
-          <img src="../images/HP_versus.png" alt="Observed vs Predicted Values" style="max-width: 105%";>
-          <figcaption class="caption">Figure 3. Comparison between observed historical data and ML model predicted values (hindcasting).</figcaption>
+function IconArrowLeft({ size = 14 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="none">
+      <path d="M13 3 L3 13 M10 13 L3 13 L3 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
 
-        </figure>
-        <figure style="flex: 0.8;">
-          <img src="../images/HP_MAE.png" alt="Model Error Comparison" style="max-width: 60%;">
-          <figcaption class="caption">Figure 4. Mean Absolute Error (MAE) comparison across multiple GCMs for model selection.</figcaption>
-        </figure>
-      </div>
-      <div class="analysis-text-full">
-        <p><strong>Figure 3</strong> demonstrates high predictive accuracy by closely tracking 10 years of historical energy fluctuations and seasonal peaks. 
-          This successful hindcasting validates the machine learning framework as a robust tool for simulating future energy yields across various climate scenarios.
-          <strong>Figure 4</strong> shows the final model selection process, one model was identified as having the lowest MAE, making it the primary driver for future simulations.</p>
-      </div>
-    </section>
+function useReveal() {
+  useEffect(() => {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const sib = Array.from(e.target.parentElement.children).filter(c => c.classList && c.classList.contains('reveal'));
+          const i = sib.indexOf(e.target);
+          e.target.style.transitionDelay = (i * 0.07) + 's';
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+}
 
-    <section class="analysis-grid" style="grid-template-columns: 1.1fr 1.2fr; gap: 20px;">
-      <figure>
-        <img src="../images/HP_scenario.png" alt="RCP Scenario Projections" style="max-width: 90%;">
-        <figcaption class="caption">Figure 5. Predicted electricity generation across RCP 2.6, 4.5, 6.0, and 8.5 scenarios through 2030.</figcaption>
-      </figure>
-      
-      <div class="analysis-text" style="margin-left: -30px;">
-        <p><strong>Figure 5</strong> 
-          presents the final energy yield proxies across four IPCC Representative Concentration Pathways (RCPs). 
-          By presenting the client with a range of outcomes from the low-emission RCP 2.6 to the high-emission RCP 8.5,
-          I provided the client with a way to stress-test their capital investments and ensure their long-term plans remain solid under various future climate conditions.</p>
-      </div>
-    </section>
-
-    <div class="note">
-      <strong>Note:</strong> Out of respect for data privacy, only a high-level overview of the methodology and sanitized performance metrics are shared here.
-    </div>
-
-    <h2>Impact & Insights</h2>
-    <p>This project was a turning point in my career. Working closely with the client, I realised that while the science of climate change is clear, financial considerations are the primary driver for corporate <span class="emphasize">renewable energy transitions</span>. This insight is exactly what inspired me to move to the Netherlands to specialise in <span class="emphasize">Environmental Economics</span>, as I wanted to understand the market mechanisms that make large-scale sustainability possible.</p>
-
-    <p>The experience also sharpened my professional communication. I learned how to translate complex data into a <span class="emphasize">persuasive consulting report</span> that speaks the language of stakeholders. Furthermore, narrowing down the project scope gave me <span class="emphasize">unique energy market insights</span>, such as the strategic reasons why certain enterprises prioritise the stability of hydropower over the variability of solar energy.</p>
-
-    <nav class="pager">
-      <a href="../index.html#projects">← Back to projects</a>
+function Nav() {
+  return (
+    <nav style={{
+      position: 'fixed', top: 24, left: '50%', transform: 'translateX(-50%)',
+      zIndex: 100, padding: '10px 14px', borderRadius: 999,
+      background: 'rgba(251,249,243,0.78)',
+      backdropFilter: 'blur(20px) saturate(1.4)',
+      border: '1px solid rgba(255,255,255,0.6)',
+      boxShadow: '0 10px 40px -12px rgba(14,31,36,0.18)',
+      display: 'flex', gap: 4, alignItems: 'center',
+    }}>
+      <a href="index.html" style={{
+        fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--ink-2)',
+        letterSpacing: '0.1em', padding: '6px 12px', borderRadius: 999, textDecoration: 'none',
+      }}>YL</a>
+      <span style={{ width: 1, height: 18, background: 'var(--line)', margin: '0 4px' }}></span>
+      <a href="index.html#projects" style={{
+        fontSize: 12.5, padding: '6px 12px', borderRadius: 999,
+        textDecoration: 'none', color: 'var(--ink-2)',
+        transition: 'background 0.25s, color 0.25s',
+      }}>Projects</a>
+      <a href="index.html#skills" style={{
+        fontSize: 12.5, padding: '6px 12px', borderRadius: 999,
+        textDecoration: 'none', color: 'var(--ink-2)',
+        transition: 'background 0.25s, color 0.25s',
+      }}>Skills</a>
+      <a href="index.html#contact" style={{
+        fontSize: 12.5, padding: '6px 12px', borderRadius: 999,
+        textDecoration: 'none', color: 'var(--ink-2)',
+        transition: 'background 0.25s, color 0.25s',
+      }}>Contact</a>
     </nav>
-  </main>
+  );
+}
+
+function ProjectPage() {
+  useReveal();
+
+  return (
+    <div style={{ minHeight: '100vh' }}>
+      <Nav/>
+
+      {/* Hero */}
+      <section style={{
+        paddingTop: 'clamp(100px, 14vh, 140px)',
+        paddingBottom: 'clamp(40px, 6vh, 72px)',
+        padding: 'clamp(100px, 14vh, 140px) clamp(20px, 4vw, 56px) clamp(40px, 6vh, 72px)',
+        maxWidth: 1240, margin: '0 auto',
+      }}>
+        <div className="reveal" style={{ marginBottom: 20 }}>
+          <a href="index.html#projects" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--ink-4)',
+            letterSpacing: '0.1em', textDecoration: 'none',
+            transition: 'color 0.2s',
+          }}
+          onMouseEnter={e => e.currentTarget.style.color = 'var(--kelp-deep)'}
+          onMouseLeave={e => e.currentTarget.style.color = 'var(--ink-4)'}
+          >
+            <IconArrowLeft size={12}/> BACK TO PROJECTS
+          </a>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
+          <span className="mono reveal" style={{ fontSize: 11, color: 'var(--ink-4)', letterSpacing: '0.18em' }}>P_002</span>
+          <div style={{ width: 8, height: 8, borderRadius: 2, background: 'var(--kelp)' }}></div>
+        </div>
+
+        <h1 className="reveal serif" style={{
+          fontSize: 'clamp(40px, 6vw, 88px)',
+          lineHeight: 0.95, fontWeight: 400, color: 'var(--ink)',
+          letterSpacing: '-0.02em', marginBottom: 28,
+        }}>
+          Hydropower<br/>Potential Investment
+        </h1>
+
+        <div className="reveal" style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 40 }}>
+          {['Python', 'Climate Scenario', 'Hindcasting', 'Long-term Climate Forecasts'].map(tag => (
+            <span key={tag} className="mono" style={{
+              fontSize: 11, padding: '5px 12px', borderRadius: 999,
+              color: 'var(--ink-3)', background: 'rgba(255,255,255,0.55)',
+              border: '1px solid var(--line)', letterSpacing: '0.04em',
+            }}>{tag}</span>
+          ))}
+        </div>
+
+        {/* Summary stat strip */}
+        <div className="reveal" style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+          gap: 1, background: 'var(--line)',
+          borderRadius: 16, overflow: 'hidden', border: '1px solid var(--line)',
+          marginBottom: 0,
+        }}>
+          {[
+            ['4', 'RCP scenarios'],
+            ['20 yr', 'training data'],
+            ['5', 'ML models compared'],
+            ['2030', 'projection horizon'],
+          ].map(([n, l]) => (
+            <div key={l} style={{ padding: '28px 24px', background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(8px)' }}>
+              <div className="serif" style={{ fontSize: 'clamp(32px, 4vw, 48px)', lineHeight: 1, color: 'var(--ink)', fontWeight: 400, letterSpacing: '-0.02em', marginBottom: 10 }}>{n}</div>
+              <div style={{ fontSize: 13, color: 'var(--ink-3)' }}>{l}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Objective */}
+      <section style={{ padding: 'clamp(48px, 6vh, 80px) clamp(20px, 4vw, 56px)' }}>
+        <div style={{ maxWidth: 1240, margin: '0 auto' }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.8fr)',
+            gap: 'clamp(32px, 6vw, 96px)',
+            alignItems: 'start',
+          }}>
+            <div className="reveal">
+              <div className="eyebrow" style={{ marginBottom: 16 }}>
+                <span className="tick"></span>
+                <span>01 / Objective</span>
+              </div>
+              <h2 className="serif" style={{
+                fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 400,
+                lineHeight: 1.1, color: 'var(--ink)', letterSpacing: '-0.01em',
+              }}>
+                Translating climate risk into investment-grade energy intelligence.
+              </h2>
+            </div>
+            <div className="reveal" style={{ fontSize: 17, lineHeight: 1.8, color: 'var(--ink-2)' }}>
+              <p style={{ marginBottom: 16 }}>
+                For a Tier-1 manufacturing partner targeting carbon neutrality by 2030, the challenge was converting complex climate projection data into actionable energy yield proxies. Raw RCP scenario outputs offered no direct path to investment decisions — the gap between broad GCM projections and site-specific hydrology had to be bridged analytically.
+              </p>
+              <p>
+                This project designed a four-stage assessment pipeline: statistical validation of precipitation-output relationships, selection and meteorological gridding of appropriate climate models, and machine learning backtesting to validate scenario-specific projections — delivering a quantified view of hydropower asset performance across plausible climate futures.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Method */}
+      <section style={{ padding: 'clamp(48px, 6vh, 80px) clamp(20px, 4vw, 56px)', background: 'rgba(255,255,255,0.25)' }}>
+        <div style={{ maxWidth: 1240, margin: '0 auto' }}>
+          <div className="eyebrow reveal" style={{ marginBottom: 40 }}>
+            <span className="tick"></span>
+            <span>02 / Methods & Data</span>
+          </div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: 22,
+          }}>
+            {[
+              ['Modelling', 'Split-window hindcasting validated across 20-year historical datasets using multiple regression models. Four RCP scenarios (2.6, 4.5, 6.0, 8.5) were simulated to capture the full range of feasible climate trajectories. A three-month moving average resolved temporal lags in streamflow accumulation.'],
+              ['Climate Model Selection', 'MAE comparison across multiple GCMs identified the best-performing model for the target watershed. Meteorological gridding aligned precipitation fields with the watershed geometry, transforming broad climate signals into site-specific hydropower yield projections.'],
+              ['Client Interface', 'Findings were delivered as scenario-stratified yield forecasts with explicit risk metrics, enabling the client\'s investment team to evaluate renewable asset performance under a range of climate outcomes without requiring meteorological expertise.'],
+            ].map(([t, d], i) => (
+              <div key={t} className="reveal glass" style={{ padding: '28px 28px 26px' }}>
+                <div className="mono" style={{ fontSize: 11, color: 'var(--ink-4)', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 8 }}>{String(i+1).padStart(2,'0')} ·</div>
+                <h3 className="serif" style={{ fontSize: 22, fontWeight: 400, lineHeight: 1.2, color: 'var(--ink)', marginBottom: 14 }}>{t}</h3>
+                <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65 }}>{d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Figures */}
+      <section style={{ padding: 'clamp(48px, 6vh, 80px) clamp(20px, 4vw, 56px)' }}>
+        <div style={{ maxWidth: 1240, margin: '0 auto' }}>
+          <div className="eyebrow reveal" style={{ marginBottom: 40 }}>
+            <span className="tick"></span>
+            <span>03 / Key Outputs</span>
+          </div>
+
+          <div className="reveal glass" style={{ padding: '32px 32px 36px' }}>
+
+            {/* Row 1: Fig1 + Fig2 side by side */}
+            <div className="fig-row-eq" style={{ display: 'grid', gridTemplateColumns: '0.95fr 1.2fr', gap: 24, marginBottom: 16 }}>
+              <div>
+                <div className="fig-img"><img src="https://yushan0989.github.io/portfolio/images/HP_correlation.png" alt="Precipitation vs Electricity Correlation"/></div>
+                <p className="fig-cap">Figure 1. Statistical correlation between observed precipitation and electricity generation.</p>
+              </div>
+              <div>
+                <div className="fig-img"><img src="https://yushan0989.github.io/portfolio/images/HP_lagged.png" alt="Lagged Hydrological Response"/></div>
+                <p className="fig-cap">Figure 2. Time-lagged correlation analysis reflecting the delay in streamflow accumulation.</p>
+              </div>
+            </div>
+            <div className="fig-body" style={{ marginBottom: 36, paddingBottom: 36, borderBottom: '1px solid rgba(14,31,36,0.10)' }}>
+              <p><strong>Figure 1</strong> demonstrates the initial validation phase. By establishing a strong statistical link between meteorological inputs and energy output, the model achieved a high degree of fit during the historical training period. <strong>Figure 2</strong> highlights a critical technical deliverable: the time-lagged correlation. Through iterative testing, a three-month moving average (3-MMA) was identified as most effective for capturing the lagged relationship between rainfall and power generation.</p>
+            </div>
+
+            {/* Row 2: Fig3 + Fig4 side by side */}
+            <div className="fig-row-eq" style={{ display: 'grid', gridTemplateColumns: '1fr 0.8fr', gap: 24, marginBottom: 16 }}>
+              <div>
+                <div className="fig-img"><img src="https://yushan0989.github.io/portfolio/images/HP_versus.png" alt="Observed vs Predicted Values"/></div>
+                <p className="fig-cap">Figure 3. Comparison between observed historical data and ML model predicted values (hindcasting).</p>
+              </div>
+              <div>
+                <div className="fig-img" style={{ maxWidth: '75%' }}><img src="https://yushan0989.github.io/portfolio/images/HP_MAE.png" alt="Model Error Comparison"/></div>
+                <p className="fig-cap">Figure 4. Mean Absolute Error (MAE) comparison across multiple GCMs for model selection.</p>
+              </div>
+            </div>
+            <div className="fig-body" style={{ marginBottom: 36, paddingBottom: 36, borderBottom: '1px solid rgba(14,31,36,0.10)' }}>
+              <p><strong>Figure 3</strong> demonstrates high predictive accuracy by closely tracking 10 years of historical energy fluctuations and seasonal peaks. <strong>Figure 4</strong> shows the final model selection process — one model was identified as having the lowest MAE, making it the primary driver for future simulations.</p>
+            </div>
+
+            {/* Row 3: Fig5 image | text */}
+            <div className="fig-row-2" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1.2fr', gap: 24, marginBottom: 28, alignItems: 'start' }}>
+              <div>
+                <div className="fig-img"><img src="https://yushan0989.github.io/portfolio/images/HP_scenario.png" alt="RCP Scenario Projections" style={{ maxWidth: '90%' }}/></div>
+                <p className="fig-cap">Figure 5. Predicted electricity generation across RCP 2.6, 4.5, 6.0, and 8.5 scenarios through 2030.</p>
+              </div>
+              <div className="fig-body">
+                <p><strong>Figure 5</strong> presents the final energy yield proxies across four IPCC Representative Concentration Pathways (RCPs). By presenting the client with a range of outcomes from the low-emission RCP 2.6 to the high-emission RCP 8.5, the analysis provides a way to stress-test capital investments and ensure long-term plans remain solid under various future climate conditions.</p>
+              </div>
+            </div>
+
+            <div style={{ paddingTop: 24, borderTop: '1px dashed rgba(14,31,36,0.18)', display: 'flex', alignItems: 'baseline', gap: 12 }}>
+              <span className="mono" style={{ fontSize: 10, color: 'var(--ink-4)', letterSpacing: '0.1em', flexShrink: 0 }}>NOTE</span>
+              <p style={{ fontSize: 13, color: 'var(--ink-4)', lineHeight: 1.6 }}>Out of respect for data privacy, only high-level methodology and sanitised performance metrics are shared here.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Impact */}
+      <section style={{ padding: 'clamp(48px, 6vh, 80px) clamp(20px, 4vw, 56px)', background: 'rgba(255,255,255,0.25)' }}>
+        <div style={{ maxWidth: 1240, margin: '0 auto' }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.8fr)',
+            gap: 'clamp(32px, 6vw, 96px)',
+            alignItems: 'start',
+          }}>
+            <div className="reveal">
+              <div className="eyebrow" style={{ marginBottom: 16 }}>
+                <span className="tick"></span>
+                <span>04 / Impact</span>
+              </div>
+              <h2 className="serif" style={{
+                fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 400,
+                lineHeight: 1.1, color: 'var(--ink)', letterSpacing: '-0.01em',
+              }}>
+                Climate intelligence for strategic renewable investment.
+              </h2>
+            </div>
+            <div className="reveal" style={{ fontSize: 17, lineHeight: 1.8, color: 'var(--ink-2)' }}>
+              <p style={{ marginBottom: 16 }}>
+                The scenario-stratified yield projections gave the client a quantified view of hydropower asset performance under plausible climate futures — enabling risk-adjusted investment planning that traditional energy assessments cannot provide.
+              </p>
+              <p>
+                The project revealed that financial considerations are the primary driver behind corporate renewable energy transitions — motivating deeper specialisation in Environmental Economics. Delivering rigorous climate science in a form accessible to investment stakeholders required bridging the gap between technical modelling and strategic communication.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer nav */}
+      <section style={{ padding: 'clamp(48px, 6vh, 80px) clamp(20px, 4vw, 56px)' }}>
+        <div style={{ maxWidth: 1240, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
+          <a href="solar-energy.html" className="btn btn-ghost">
+            <IconArrowLeft/> Prev: Solar Energy
+          </a>
+          <div style={{ display: 'flex', gap: 12 }}>
+            <a href="offshore-wind.html" className="btn btn-ghost">
+              Next: Offshore Wind <span className="arrow"><IconArrow/></span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer style={{
+        padding: '40px clamp(20px, 4vw, 56px)',
+        borderTop: '1px solid var(--line)',
+        background: 'rgba(14,31,36,0.92)',
+        color: 'rgba(244,241,234,0.7)',
+        backdropFilter: 'blur(8px)',
+      }}>
+        <div style={{
+          maxWidth: 1240, margin: '0 auto',
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: 24, alignItems: 'baseline',
+        }}>
+          <div>
+            <div style={{ fontFamily: 'var(--serif)', fontSize: 22, color: 'rgba(244,241,234,0.95)' }}>Yu‑Shan Lin</div>
+            <div className="mono" style={{ fontSize: 11, marginTop: 6, letterSpacing: '0.08em', color: 'rgba(244,241,234,0.5)' }}>Sustainability · Data · Strategy</div>
+          </div>
+          <div className="mono" style={{ fontSize: 11, letterSpacing: '0.06em' }}>© 2026 · open-source on GitHub</div>
+          <div className="mono" style={{ fontSize: 11, letterSpacing: '0.06em', textAlign: 'right', color: 'rgba(244,241,234,0.5)' }}>experimental project</div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('app'));
+root.render(<ProjectPage/>);
+</script>
 
 </body>
 </html>

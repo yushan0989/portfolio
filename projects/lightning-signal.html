@@ -358,12 +358,23 @@ function ProjectPage() {
             ['4', 'spatial radii (5–30 km)'],
             ['Taiwan first', 'IC lightning application'],
             ['Semiconductor', 'primary industry client'],
-          ].map(([n, l]) => (
-            <div key={l} style={{ padding: '28px 24px', background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(8px)' }}>
-              <div className="serif" style={{ fontSize: 'clamp(26px, 3.2vw, 42px)', lineHeight: 1, color: 'var(--ink)', fontWeight: 400, letterSpacing: '-0.02em', marginBottom: 10 }}>{n}</div>
-              <div style={{ fontSize: 13, color: 'var(--ink-3)' }}>{l}</div>
-            </div>
-          ))}
+    ].map(([n, l]) => (
+      <div key={l} style={{ padding: '28px 24px', background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(8px)' }}>
+        <div className="serif" style={{
+        fontSize: n === 'Semiconductor'
+          ? 'clamp(20px, 2.2vw, 30px)'
+          : 'clamp(26px, 3.2vw, 42px)',
+        lineHeight: 1,
+        color: 'var(--ink)',
+        fontWeight: 400,
+        letterSpacing: '-0.02em',
+        marginBottom: 10
+      }}>
+          {n}
+        </div>
+        <div style={{ fontSize: 13, color: 'var(--ink-3)' }}>{l}</div>
+      </div>
+    ))}
         </div>
       </section>
 

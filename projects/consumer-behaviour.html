@@ -1,219 +1,553 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather–Consumer Behaviour | Yu-Shan Lin</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Weather–Consumer Behaviour — Yu-Shan Lin</title>
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🦦</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bone:        #f4f1ea;
+    --bone-soft:   #ece7dc;
+    --paper:       #fbf9f3;
+    --ink:         #0e1f24;
+    --ink-2:       #2c4148;
+    --ink-3:       #5b7079;
+    --ink-4:       #94a4ac;
+    --kelp:        oklch(0.62 0.10 165);
+    --kelp-deep:   oklch(0.46 0.10 170);
+    --kelp-soft:   oklch(0.92 0.04 160);
+    --tide:        oklch(0.66 0.09 210);
+    --tide-deep:   oklch(0.42 0.08 215);
+    --tide-soft:   oklch(0.92 0.03 210);
+    --foam:        oklch(0.96 0.02 180);
+    --coral:       oklch(0.72 0.13 35);
+    --line:        rgba(14,31,36,0.10);
+    --line-2:      rgba(14,31,36,0.18);
+    --serif: 'Newsreader', Georgia, serif;
+    --sans:  'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono:  'JetBrains Mono', ui-monospace, monospace;
+  }
 
-  <style>
-    :root {
-      --deep-green: #3F4A3A;
-      --accent-green: #A8C686;
-      --bg-main: #FAFAF8;
-      --text-dark: #2B2B2B;
-      --text-light: #F5F5F5;
-      --text-muted: #6F6F6F;
-      --line: #D8D8D8;
-      --link-blue: #1540dd;
-    }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { 
-      font-family: 'Inter', sans-serif; 
-      background: var(--bg-main); 
-      color: var(--text-dark); 
-      line-height: 1.7; 
-      -webkit-font-smoothing: antialiased;
-    }
-    
-    .container, .project-container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
-    
-    /* ===== TYPOGRAPHY & EMPHASIS ===== */
-    h1 { font-size: 2.5rem; font-weight: 500; margin-bottom: 8px; }
-    h2 { 
-      margin-top: 28px; 
-      margin-bottom: 8px; 
-      font-size: 1.4rem; 
-      border-left: 4px solid var(--accent-green); 
-      padding-left: 12px;
-      color: var(--deep-green);
-    }
-    
-    p { margin-bottom: 12px; text-indent: 2em; text-align: left; }
-    .emphasize { color: var(--link-blue); font-weight: 500; letter-spacing: 0.01em; }
+  body {
+    background: var(--bone);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
 
-    /* ===== HERO & NAV ===== */
-    .hero { background: var(--deep-green); color: var(--text-light); padding: 40px 0 26px; }
-    .hero-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; }
-    .hero-left p { font-size: 1.15rem; max-width: 850px; opacity: 0.95; text-indent: 0; }
-    .hero-right { margin-top: 35px; white-space: nowrap; font-size: 1rem; }
-    .hero-right a { color: var(--accent-green); text-decoration: none; font-weight: 500; }
-    .hero-right .sep { padding: 0 10px; opacity: 0.4; }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.04;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 180px;
+  }
 
-    .nav-bar { border-bottom: 1px solid var(--line); background: #fff; position: sticky; top: 0; z-index: 1000; }
-    .nav-inner { display: flex; gap: 18px; padding: 14px 0; font-size: 1rem; flex-wrap: wrap; }
-    .nav-inner a { color: var(--text-muted); text-decoration: none; }
-    .nav-inner a:hover { color: var(--text-dark); }
+  #ocean-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  #app { position: relative; z-index: 1; }
 
-    /* ===== PROJECT CONTENT ===== */
-    .project-container { margin-top: 32px; padding-bottom: 60px; }
-    .meta { color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; }
-    
-    /* Two Images Grid */
-    .analysis-images { display: flex; gap: 24px; margin-bottom: 16px; }
-    .analysis-images figure { flex: 1; margin: 0; }
-    .analysis-images img { height: auto; width: 100%; border-radius: 4px; display: block; }
+  ::selection { background: var(--kelp-soft); color: var(--ink); }
 
-    .caption { margin-top: 8px; font-size: 0.88rem; color: var(--text-muted); font-style: italic; text-align: left; text-indent: 0; }
+  .mono { font-family: var(--mono); font-variant-ligatures: none; }
+  .serif { font-family: var(--serif); font-optical-sizing: auto; }
 
-    .note { 
-      margin: 32px 0; 
-      padding: 14px 18px; 
-      border-left: 4px solid #B00020; 
-      color: #B00020; 
-      background: rgba(176, 0, 32, 0.04); 
-      font-size: 0.92rem; 
-      border-radius: 0 8px 8px 0; 
-      text-indent: 0;
-      font-style: italic;
-    }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow .tick { width: 22px; height: 1px; background: currentColor; opacity: 0.5; }
 
-    /* ===== FOOTER NAV ===== */
-    .pager { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
-    .pager a { text-decoration: none; color: var(--text-dark); border: 1px solid var(--line); padding: 10px 20px; border-radius: 8px; background: #fff; font-weight: 500; display: inline-block; }
+  .glass {
+    background: rgba(251,249,243,0.55);
+    backdrop-filter: blur(14px) saturate(1.05);
+    -webkit-backdrop-filter: blur(14px) saturate(1.05);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.7) inset, 0 30px 60px -28px rgba(14,31,36,0.18), 0 6px 16px -8px rgba(14,31,36,0.10);
+    border-radius: 18px;
+  }
 
-    @media (max-width: 900px) {
-      .hero-row, .analysis-triple-images { flex-direction: column; grid-template-columns: 1fr; }
-    }
-  </style>
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 11px 20px; border-radius: 999px;
+    font-family: var(--sans); font-size: 13px; font-weight: 500;
+    letter-spacing: 0.01em; text-decoration: none; cursor: pointer;
+    border: 1px solid transparent; white-space: nowrap;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn .arrow { transition: transform 0.25s; display: inline-block; }
+  .btn:hover .arrow { transform: translate(2px, -2px); }
+
+  .btn-primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .btn-primary:hover { background: var(--kelp-deep); border-color: var(--kelp-deep); box-shadow: 0 8px 24px -10px var(--kelp-deep); }
+
+  .btn-ghost { background: rgba(255,255,255,0.45); color: var(--ink-2); border-color: var(--line-2); backdrop-filter: blur(8px); }
+  .btn-ghost:hover { background: rgba(255,255,255,0.85); color: var(--ink); }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(14,31,36,0.18); border-radius: 999px; border: 2px solid var(--bone); }
+
+  #cursor-blob {
+    position: fixed; top: 0; left: 0;
+    width: 110px; height: 110px; border-radius: 50%;
+    background: radial-gradient(circle at center, oklch(0.85 0.10 175 / 0.30), oklch(0.85 0.10 175 / 0) 60%);
+    pointer-events: none; z-index: 0;
+    transform: translate(-50%,-50%); transition: opacity 0.4s; opacity: 0;
+    will-change: transform; filter: blur(8px);
+  }
+  body.cursor-on #cursor-blob { opacity: 1; }
+  .fig-img { background: rgba(255,255,255,0.7); border-radius: 12px; overflow: hidden; border: 1px solid rgba(14,31,36,0.10); }
+  .fig-img img { width: 100%; display: block; }
+  .fig-cap { font-size: 13px; color: #94a4ac; font-style: italic; margin-top: 8px; line-height: 1.5; }
+  .fig-body { font-size: 15px; line-height: 1.75; color: #2c4148; }
+  .fig-body p { margin-bottom: 12px; }
+  .fig-body strong { color: #0e1f24; }
+  @media (max-width: 800px) { .fig-row-2, .fig-row-eq { grid-template-columns: 1fr !important; } }
+</style>
 </head>
-
 <body>
 
-  <header class="hero">
-    <div class="container">
-      <div class="hero-row">
-        <div class="hero-left">
-          <h1>Yu-Shan Lin</h1>
-          <p>Combining scientific insight and economic analysis to translate complex data into measurable, data-driven impact for sustainable business transformation 🌱</p>
-        </div>
-        <div class="hero-right">
-          <a href="mailto:yushan0989@gmail.com">Contact</a>
-          <span class="sep">|</span>
-          <a href="https://www.linkedin.com/in/yu-shan-lin" target="_blank">LinkedIn</a>
-          <span class="sep">|</span>
-          <a href="https://github.com/yushan0989" target="_blank">GitHub</a>
-        </div>
-      </div>
-    </div>
-  </header>
+<canvas id="ocean-bg"></canvas>
+<div id="cursor-blob"></div>
+<div id="app"></div>
 
-  <nav class="nav-bar">
-    <div class="container">
-      <div class="nav-inner">
-        <a href="../index.html#projects">Strategic Project Experience</a>
-        <span class="nav-sep">|</span>
-        <a href="../index.html#expertise">Professional Expertise</a>
-        <span class="nav-sep">|</span>
-        <a href="../index.html#thesis">Graduate Thesis</a>
-        <span class="nav-sep">|</span>
-        <a href="../index.html#about">About Me</a>
-      </div>
-    </div>
-  </nav>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
-  <main class="project-container">
-    <h1>Weather–Consumer Behaviour</h1>
-    <div class="meta">Sampling Validation · Statistical Inference · Business Strategy</div>
+<script>
+(function () {
+  const canvas = document.getElementById('ocean-bg');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W=0,H=0,DPR=Math.min(window.devicePixelRatio||1,2);
+  let mouseX=0.5,mouseY=0.4,scrollY=0,t=0,lastFrame=0;
 
-    <h2>Project Description & Objective</h2>
-    <p>Developed a data-driven consumer behavior analysis for a strategic retail partner, utilizing a large-scale electronic invoice dataset to decode the drivers of consumer demand. 
-      The primary objective was to move beyond raw sales figures by establishing a robust correlation between meteorological fluctuations, such as temperature and precipitation, 
-      and the <span class="emphasize">consumption patterns</span> of specific convenience store products, such as Japanese Oden. 
-      By quantifying how <span class="emphasize">weather sensitivity</span> varies by region, the project gave the retailer practical insights to improve 
-      <span class="emphasize">inventory management</span> and <span class="emphasize">demand forecasting</span>.</p>
+  function resize() {
+    W=window.innerWidth; H=window.innerHeight;
+    canvas.width=W*DPR; canvas.height=H*DPR;
+    canvas.style.width=W+'px'; canvas.style.height=H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  resize();
+  window.addEventListener('resize',resize);
+  window.addEventListener('mousemove',(e)=>{mouseX=e.clientX/W;mouseY=e.clientY/H;});
+  window.addEventListener('scroll',()=>{scrollY=window.scrollY;},{passive:true});
 
-    <h2>Methods & Data</h2>
-    <p>The analysis utilized a comprehensive dataset of over 9.2 million electronic invoice records from 2018. 
-      To ensure the reliability of the findings, I first conducted a sampling validation by comparing the geographic distribution of the data against official Ministry of Finance statistics, confirming the dataset’s representative nature across Taiwan.<br>
-      
-      <p>After identifying and filtering out anomalous high-frequency users (e.g., single-day consumption exceeding 60 transactions), 
-      I segmented the data to isolate weather-sensitive products. I employed Two Sample t-tests and Regression to analyze the impact of environmental variables. 
-      To account for <span class="emphasize">regional psychological thresholds</span>, I redefined "low temperature" using a 20th percentile threshold specific to each city (19°C for high-latitude city and 23°C for low-latitude city), 
-      ensuring the analysis reflected local consumer perceptions of "cold" weather.
-      </p>
-    </p>
+  function hash(x,y){const s=Math.sin(x*374.123+y*219.317)*43758.5453;return s-Math.floor(s);}
+  function smooth(t){return t*t*(3-2*t);}
+  function vnoise(x,y){
+    const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
+    const a=hash(xi,yi),b=hash(xi+1,yi),c=hash(xi,yi+1),d=hash(xi+1,yi+1);
+    const u=smooth(xf),v=smooth(yf);
+    return a*(1-u)*(1-v)+b*u*(1-v)+c*(1-u)*v+d*u*v;
+  }
+  function fbm(x,y){let v=0,amp=0.5,freq=1;for(let i=0;i<4;i++){v+=vnoise(x*freq,y*freq)*amp;amp*=0.5;freq*=2;}return v;}
 
-    <h2>Key Deliverables</h2>
-   
-    <section>
-            <div class="analysis-images">
-        <figure style="flex: 0.98">
-          <img src="../images/CB_data.png" alt="Spatial Distribution" style="max-width: 98%";>
-          <figcaption class="caption">Figure 1. Number of electronic invoices from Ministry of Finance statistics vs. sample size of electronic invoices.</figcaption>
-        </figure>
-        <figure style="flex: 1.05">
-          <img src="../images/CB_correlation.png" alt="Correlation" style="max-width: 105%";>
-          <figcaption class="caption">Figure 2. Regression Analysis of Observed Temperature vs. Daily Sales Volume.</figcaption>
-        </figure>
-      </div>
-      <div class="analysis-text-full">
-        <p><strong>Figure 1</strong> demonstrates the initial validation phase, ensuring the representativeness of the sample.
-          <strong>Figure 2</strong>, a <span class="emphasize">regression analysis</span>, establishes a significant negative correlation between observed temperature and daily sales volume, 
-          illustrating a marked non-linear increase in demand as temperatures drop. With a statistical significance of <i>p</i> &lt; 0.001, 
-          these findings confirm temperature as a primary driver of sales volatility, providing a robust empirical foundation for optimizing inventory and retail demand forecasting.
-        </p>
-      </div>
-    </section>
+  function draw(){
+    const now=performance.now();
+    if(now-lastFrame<33){requestAnimationFrame(draw);return;}
+    lastFrame=now; t+=0.0014;
+    const g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#f6f3ec');g.addColorStop(0.55,'#eef0e8');g.addColorStop(1,'#e6ecea');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    const cols=80,rows=Math.round(cols*(H/W)),cw=W/cols,ch=H/rows;
+    const sf=scrollY*0.0008,mx=(mouseX-0.5)*0.6,my=(mouseY-0.5)*0.6;
+    const levels=[0.30,0.40,0.50,0.58,0.66,0.74];
+    const colors=['rgba(20,90,90,0.04)','rgba(20,90,90,0.06)','rgba(20,90,90,0.08)','rgba(35,110,100,0.10)','rgba(45,120,110,0.12)','rgba(55,130,115,0.14)'];
+    const field=new Float32Array((cols+1)*(rows+1));
+    for(let y=0;y<=rows;y++)for(let x=0;x<=cols;x++)field[y*(cols+1)+x]=fbm(x/cols*3+t+mx,y/rows*3+sf+my);
+    ctx.lineWidth=1; ctx.lineCap='round';
+    for(let li=0;li<levels.length;li++){
+      const level=levels[li];
+      ctx.strokeStyle=colors[li];
+      ctx.beginPath();
+      for(let y=0;y<rows;y++){
+        for(let x=0;x<cols;x++){
+          const a=field[y*(cols+1)+x],b=field[y*(cols+1)+x+1],c=field[(y+1)*(cols+1)+x+1],d=field[(y+1)*(cols+1)+x];
+          let idx=0;
+          if(a>level)idx|=1;if(b>level)idx|=2;if(c>level)idx|=4;if(d>level)idx|=8;
+          if(idx===0||idx===15)continue;
+          const px=x*cw,py=y*ch,lerp=(v1,v2)=>(level-v1)/(v2-v1);
+          const top=[px+cw*lerp(a,b),py],right=[px+cw,py+ch*lerp(b,c)],bottom=[px+cw*lerp(d,c),py+ch],left=[px,py+ch*lerp(a,d)];
+          const seg=(p1,p2)=>{ctx.moveTo(p1[0],p1[1]);ctx.lineTo(p2[0],p2[1]);};
+          switch(idx){
+            case 1:case 14:seg(left,top);break;case 2:case 13:seg(top,right);break;
+            case 3:case 12:seg(left,right);break;case 4:case 11:seg(right,bottom);break;
+            case 5:seg(left,top);seg(right,bottom);break;case 6:case 9:seg(top,bottom);break;
+            case 7:case 8:seg(left,bottom);break;case 10:seg(left,bottom);seg(top,right);break;
+          }
+        }
+      }
+      ctx.stroke();
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
 
-    <section>
-      <div class="analysis-images">
-        <figure>
-          <img src="../images/CB_low_lat.png" alt="low-lat boxplot";>
-          <figcaption class="caption">Figure 3. Boxplot of Temperature and Sales Volume in a Low-Latitude City</figcaption>
-        </figure>
-        <figure>
-          <img src="../images/CB_high_lat.png" alt="high-lat boxplot";>
-          <figcaption class="caption">Figure 4. Boxplot of Temperature and Sales Volume in a High-Latitude City.</figcaption>
-        </figure>
-      </div>
-      <div class="analysis-text-full">
-        <p><strong>Figure 3</strong> utilizes a regional 20th percentile threshold of 19°C to identify a significant surge in sales volume during low-temperature events. 
-          In high-latitude cities, the mean sales volume increased from 20 to 28 units when this local threshold was met.
-          This behavior is statistically significant (<i>p</i> &lt; 0.001), confirming that regional cooling serves as a major driver of consumer demand.
-          confirming that regional cooling serves as a major driver for consumer consumer demand.
-          <strong>Figure 4</strong>, on the other hand, shows in low-latitude cities, where the threshold was adjusted to 23°C to account for local climate perceptions.
-          Despite the warmer baseline, average sales volume rose from 11 to 14 units during low-temperature periods. 
-          While absolute volume is lower than in the north, both regions demonstrate a consistent 50% growth in sales when local thresholds are triggered. 
-          This results in a statistically significant correlation <i>p</i> &lt; 0.001 between regional cooling and retail demand. 
-        </p>
-      </div>
-    </section>
+  const blob=document.getElementById('cursor-blob');
+  let bx=window.innerWidth/2,by=window.innerHeight/2,tx=bx,ty=by;
+  document.addEventListener('mousemove',(e)=>{tx=e.clientX;ty=e.clientY;document.body.classList.add('cursor-on');});
+  function tickBlob(){bx+=(tx-bx)*0.12;by+=(ty-by)*0.12;if(blob)blob.style.transform=`translate(${bx}px,${by}px) translate(-50%,-50%)`;requestAnimationFrame(tickBlob);}
+  tickBlob();
+})();
+</script>
 
-    <div class="note">
-      <strong>Note:</strong> Out of respect for data privacy, only a high-level overview of the methodology and sanitized performance metrics are shared here.
-    </div>
+<script type="text/babel">
+const { useEffect, useState } = React;
 
-    <h2>Impact & Insights</h2>
-    <p>This project highlighted a critical nuance in retail analytics: <span class="emphasize">consumer perception</span> is relative. 
-      By discovering that a 50% sales surge in both high-latitude and low-latitude cities was triggered by different temperature thresholds, 
-      I demonstrated that localized environmental benchmarks are more effective than universal ones for <span class="emphasize">national supply chain planning</span>.</p>
+function IconArrow({ size = 14 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="none">
+      <path d="M3 13 L13 3 M6 3 L13 3 L13 10" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
 
-    <p>Furthermore, the analysis successfully differentiated between "weather-sensitive" and "weather-neutral" products (such as pudding and cold noodles), 
-      allowing the client to prioritize which SKUs require weather-contingent marketing. 
-      This experience refined my ability to translate abstract <span class="emphasize">statistical p-values</span> into concrete <span class="emphasize">commercial strategies</span>, 
-      bridging the gap between data science and retail operations.</p>
+function IconArrowLeft({ size = 14 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="none">
+      <path d="M13 3 L3 13 M10 13 L3 13 L3 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
 
-    <nav class="pager">
-      <a href="../index.html#projects">← Back to projects</a>
+function useReveal() {
+  useEffect(() => {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const sib = Array.from(e.target.parentElement.children).filter(c => c.classList && c.classList.contains('reveal'));
+          const i = sib.indexOf(e.target);
+          e.target.style.transitionDelay = (i * 0.07) + 's';
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+}
+
+function Nav() {
+  return (
+    <nav style={{
+      position: 'fixed', top: 24, left: '50%', transform: 'translateX(-50%)',
+      zIndex: 100, padding: '10px 14px', borderRadius: 999,
+      background: 'rgba(251,249,243,0.78)',
+      backdropFilter: 'blur(20px) saturate(1.4)',
+      border: '1px solid rgba(255,255,255,0.6)',
+      boxShadow: '0 10px 40px -12px rgba(14,31,36,0.18)',
+      display: 'flex', gap: 4, alignItems: 'center',
+    }}>
+      <a href="index.html" style={{
+        fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--ink-2)',
+        letterSpacing: '0.1em', padding: '6px 12px', borderRadius: 999, textDecoration: 'none',
+      }}>YL</a>
+      <span style={{ width: 1, height: 18, background: 'var(--line)', margin: '0 4px' }}></span>
+      <a href="index.html#projects" style={{
+        fontSize: 12.5, padding: '6px 12px', borderRadius: 999,
+        textDecoration: 'none', color: 'var(--ink-2)',
+        transition: 'background 0.25s, color 0.25s',
+      }}>Projects</a>
+      <a href="index.html#skills" style={{
+        fontSize: 12.5, padding: '6px 12px', borderRadius: 999,
+        textDecoration: 'none', color: 'var(--ink-2)',
+        transition: 'background 0.25s, color 0.25s',
+      }}>Skills</a>
+      <a href="index.html#contact" style={{
+        fontSize: 12.5, padding: '6px 12px', borderRadius: 999,
+        textDecoration: 'none', color: 'var(--ink-2)',
+        transition: 'background 0.25s, color 0.25s',
+      }}>Contact</a>
     </nav>
-  </main>
+  );
+}
+
+function ProjectPage() {
+  useReveal();
+
+  return (
+    <div style={{ minHeight: '100vh' }}>
+      <Nav/>
+
+      {/* Hero */}
+      <section style={{
+        paddingTop: 'clamp(100px, 14vh, 140px)',
+        paddingBottom: 'clamp(40px, 6vh, 72px)',
+        padding: 'clamp(100px, 14vh, 140px) clamp(20px, 4vw, 56px) clamp(40px, 6vh, 72px)',
+        maxWidth: 1240, margin: '0 auto',
+      }}>
+        <div className="reveal" style={{ marginBottom: 20 }}>
+          <a href="index.html#projects" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--ink-4)',
+            letterSpacing: '0.1em', textDecoration: 'none',
+            transition: 'color 0.2s',
+          }}
+          onMouseEnter={e => e.currentTarget.style.color = 'var(--kelp-deep)'}
+          onMouseLeave={e => e.currentTarget.style.color = 'var(--ink-4)'}
+          >
+            <IconArrowLeft size={12}/> BACK TO PROJECTS
+          </a>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
+          <span className="mono reveal" style={{ fontSize: 11, color: 'var(--ink-4)', letterSpacing: '0.18em' }}>P_006</span>
+          <div style={{ width: 8, height: 8, borderRadius: 2, background: 'var(--kelp)' }}></div>
+        </div>
+
+        <h1 className="reveal serif" style={{
+          fontSize: 'clamp(40px, 6vw, 88px)',
+          lineHeight: 0.95, fontWeight: 400, color: 'var(--ink)',
+          letterSpacing: '-0.02em', marginBottom: 28,
+        }}>
+          Weather–Consumer<br/>Behaviour
+        </h1>
+
+        <div className="reveal" style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 40 }}>
+          {['Sampling Validation', 'Statistical Inference', 'Business Strategy'].map(tag => (
+            <span key={tag} className="mono" style={{
+              fontSize: 11, padding: '5px 12px', borderRadius: 999,
+              color: 'var(--ink-3)', background: 'rgba(255,255,255,0.55)',
+              border: '1px solid var(--line)', letterSpacing: '0.04em',
+            }}>{tag}</span>
+          ))}
+        </div>
+
+        {/* Summary stat strip */}
+        <div className="reveal" style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+          gap: 1, background: 'var(--line)',
+          borderRadius: 16, overflow: 'hidden', border: '1px solid var(--line)',
+          marginBottom: 0,
+        }}>
+          {[
+            ['9.2M', 'invoice records (2018)'],
+            ['p < 0.001', 'statistical significance'],
+            ['~50%', 'sales uplift at threshold'],
+            ['19°C / 23°C', 'regional thresholds (N/S)'],
+          ].map(([n, l]) => (
+            <div key={l} style={{ padding: '28px 24px', background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(8px)' }}>
+              <div className="serif" style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', lineHeight: 1, color: 'var(--ink)', fontWeight: 400, letterSpacing: '-0.02em', marginBottom: 10 }}>{n}</div>
+              <div style={{ fontSize: 13, color: 'var(--ink-3)' }}>{l}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Objective */}
+      <section style={{ padding: 'clamp(48px, 6vh, 80px) clamp(20px, 4vw, 56px)' }}>
+        <div style={{ maxWidth: 1240, margin: '0 auto' }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.8fr)',
+            gap: 'clamp(32px, 6vw, 96px)',
+            alignItems: 'start',
+          }}>
+            <div className="reveal">
+              <div className="eyebrow" style={{ marginBottom: 16 }}>
+                <span className="tick"></span>
+                <span>01 / Objective</span>
+              </div>
+              <h2 className="serif" style={{
+                fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 400,
+                lineHeight: 1.1, color: 'var(--ink)', letterSpacing: '-0.01em',
+              }}>
+                Localised weather signals as demand drivers.
+              </h2>
+            </div>
+            <div className="reveal" style={{ fontSize: 17, lineHeight: 1.8, color: 'var(--ink-2)' }}>
+              <p style={{ marginBottom: 16 }}>
+                National supply chain planning for weather-sensitive retail products typically relies on broad seasonal patterns — ignoring the behavioural reality that consumers in different climate zones respond to temperature differently. This project challenged that assumption using 9.2 million electronic invoice records from 2018 to decode how localised cold-weather perception drives purchasing behaviour.
+              </p>
+              <p>
+                By establishing region-specific temperature thresholds — 19°C in northern cities, 23°C in southern cities — the analysis demonstrated that identical behavioural responses emerge across geographically diverse markets despite different absolute temperature triggers.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Method */}
+      <section style={{ padding: 'clamp(48px, 6vh, 80px) clamp(20px, 4vw, 56px)', background: 'rgba(255,255,255,0.25)' }}>
+        <div style={{ maxWidth: 1240, margin: '0 auto' }}>
+          <div className="eyebrow reveal" style={{ marginBottom: 40 }}>
+            <span className="tick"></span>
+            <span>02 / Methods & Data</span>
+          </div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: 22,
+          }}>
+            {[
+              ['Sampling Validation', 'Sampling methodology validated against Ministry of Finance electronic invoice statistics to confirm representativeness across the full national dataset of 9.2 million records. Rigorous validation ensured statistical inferences were grounded in a reliable sample frame.'],
+              ['Statistical Inference', 'Two-sample t-tests confirmed significant differences in daily sales volume above and below regional temperature thresholds (p < 0.001). Regression analysis quantified the negative correlation between observed temperature and sales volume across both geographic regions.'],
+              ['Regional Analysis', 'Separate analyses for high-latitude (north) and low-latitude (south) cities revealed consistent ~50% sales increases when local thresholds were crossed — from 20 to 28 units in the north and 11 to 14 units in the south — validating the relativistic framing of consumer cold-weather perception.'],
+            ].map(([t, d], i) => (
+              <div key={t} className="reveal glass" style={{ padding: '28px 28px 26px' }}>
+                <div className="mono" style={{ fontSize: 11, color: 'var(--ink-4)', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 8 }}>{String(i+1).padStart(2,'0')} ·</div>
+                <h3 className="serif" style={{ fontSize: 22, fontWeight: 400, lineHeight: 1.2, color: 'var(--ink)', marginBottom: 14 }}>{t}</h3>
+                <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65 }}>{d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Figures */}
+      <section style={{ padding: 'clamp(48px, 6vh, 80px) clamp(20px, 4vw, 56px)' }}>
+        <div style={{ maxWidth: 1240, margin: '0 auto' }}>
+          <div className="eyebrow reveal" style={{ marginBottom: 40 }}>
+            <span className="tick"></span>
+            <span>03 / Key Outputs</span>
+          </div>
+
+          <div className="reveal glass" style={{ padding: '32px 32px 36px' }}>
+
+            {/* Row 1: Fig1 + Fig2 side by side */}
+            <div className="fig-row-eq" style={{ display: 'grid', gridTemplateColumns: '0.98fr 1.05fr', gap: 24, marginBottom: 16 }}>
+              <div>
+                <div className="fig-img"><img src="https://yushan0989.github.io/portfolio/images/CB_data.png" alt="Invoice sample vs MoF statistics"/></div>
+                <p className="fig-cap">Figure 1. Number of electronic invoices from Ministry of Finance statistics vs. sample size.</p>
+              </div>
+              <div>
+                <div className="fig-img"><img src="https://yushan0989.github.io/portfolio/images/CB_correlation.png" alt="Temperature vs Sales regression"/></div>
+                <p className="fig-cap">Figure 2. Regression Analysis of Observed Temperature vs. Daily Sales Volume.</p>
+              </div>
+            </div>
+            <div className="fig-body" style={{ marginBottom: 36, paddingBottom: 36, borderBottom: '1px solid rgba(14,31,36,0.10)' }}>
+              <p><strong>Figure 1</strong> demonstrates the initial validation phase, ensuring the representativeness of the sample. <strong>Figure 2</strong>, a <strong>regression analysis</strong>, establishes a significant negative correlation between observed temperature and daily sales volume, illustrating a marked non-linear increase in demand as temperatures drop. With a statistical significance of <em>p</em> &lt; 0.001, these findings confirm temperature as a primary driver of sales volatility.</p>
+            </div>
+
+            {/* Row 2: Fig3 + Fig4 side by side */}
+            <div className="fig-row-eq" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24, marginBottom: 16 }}>
+              <div>
+                <div className="fig-img"><img src="https://yushan0989.github.io/portfolio/images/CB_low_lat.png" alt="Low-latitude boxplot"/></div>
+                <p className="fig-cap">Figure 3. Boxplot of Temperature and Sales Volume in a Low-Latitude City.</p>
+              </div>
+              <div>
+                <div className="fig-img"><img src="https://yushan0989.github.io/portfolio/images/CB_high_lat.png" alt="High-latitude boxplot"/></div>
+                <p className="fig-cap">Figure 4. Boxplot of Temperature and Sales Volume in a High-Latitude City.</p>
+              </div>
+            </div>
+            <div className="fig-body" style={{ marginBottom: 28 }}>
+              <p><strong>Figure 3</strong> utilises a regional 20th percentile threshold of 19°C to identify a significant surge in sales volume during low-temperature events. In high-latitude cities, the mean sales volume increased from 20 to 28 units when this local threshold was met (<em>p</em> &lt; 0.001). <strong>Figure 4</strong> shows low-latitude cities where the threshold was adjusted to 23°C to account for local climate perceptions. Despite the warmer baseline, average sales volume rose from 11 to 14 units — both regions demonstrating a consistent ~50% growth in sales when local thresholds are triggered.</p>
+            </div>
+
+            <div style={{ paddingTop: 24, borderTop: '1px dashed rgba(14,31,36,0.18)', display: 'flex', alignItems: 'baseline', gap: 12 }}>
+              <span className="mono" style={{ fontSize: 10, color: 'var(--ink-4)', letterSpacing: '0.1em', flexShrink: 0 }}>NOTE</span>
+              <p style={{ fontSize: 13, color: 'var(--ink-4)', lineHeight: 1.6 }}>Out of respect for data privacy, only high-level methodology and sanitised performance metrics are shared here.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Impact */}
+      <section style={{ padding: 'clamp(48px, 6vh, 80px) clamp(20px, 4vw, 56px)', background: 'rgba(255,255,255,0.25)' }}>
+        <div style={{ maxWidth: 1240, margin: '0 auto' }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.8fr)',
+            gap: 'clamp(32px, 6vw, 96px)',
+            alignItems: 'start',
+          }}>
+            <div className="reveal">
+              <div className="eyebrow" style={{ marginBottom: 16 }}>
+                <span className="tick"></span>
+                <span>04 / Impact</span>
+              </div>
+              <h2 className="serif" style={{
+                fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 400,
+                lineHeight: 1.1, color: 'var(--ink)', letterSpacing: '-0.01em',
+              }}>
+                Relative perception as the foundation for demand forecasting.
+              </h2>
+            </div>
+            <div className="reveal" style={{ fontSize: 17, lineHeight: 1.8, color: 'var(--ink-2)' }}>
+              <p style={{ marginBottom: 16 }}>
+                The project established that applying a single national temperature benchmark systematically misclassifies cold-weather demand signals in both northern and southern markets. Region-specific thresholds captured a consistent ~50% sales uplift — a finding that directly informs inventory allocation and replenishment strategy across diverse climate zones.
+              </p>
+              <p>
+                By demonstrating that consumer perception is relative to local climate norms, the analysis reframed how weather data should be integrated into retail forecasting models — prioritising behavioural alignment over meteorological uniformity.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer nav */}
+      <section style={{ padding: 'clamp(48px, 6vh, 80px) clamp(20px, 4vw, 56px)' }}>
+        <div style={{ maxWidth: 1240, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
+          <a href="lightning-signal.html" className="btn btn-ghost">
+            <IconArrowLeft/> Prev: Lightning Signal
+          </a>
+          <a href="index.html#projects" className="btn btn-ghost">
+            All Projects
+          </a>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer style={{
+        padding: '40px clamp(20px, 4vw, 56px)',
+        borderTop: '1px solid var(--line)',
+        background: 'rgba(14,31,36,0.92)',
+        color: 'rgba(244,241,234,0.7)',
+        backdropFilter: 'blur(8px)',
+      }}>
+        <div style={{
+          maxWidth: 1240, margin: '0 auto',
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: 24, alignItems: 'baseline',
+        }}>
+          <div>
+            <div style={{ fontFamily: 'var(--serif)', fontSize: 22, color: 'rgba(244,241,234,0.95)' }}>Yu‑Shan Lin</div>
+            <div className="mono" style={{ fontSize: 11, marginTop: 6, letterSpacing: '0.08em', color: 'rgba(244,241,234,0.5)' }}>Sustainability · Data · Strategy</div>
+          </div>
+          <div className="mono" style={{ fontSize: 11, letterSpacing: '0.06em' }}>© 2026 · open-source on GitHub</div>
+          <div className="mono" style={{ fontSize: 11, letterSpacing: '0.06em', textAlign: 'right', color: 'rgba(244,241,234,0.5)' }}>experimental project</div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('app'));
+root.render(<ProjectPage/>);
+</script>
 
 </body>
 </html>

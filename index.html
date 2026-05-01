@@ -1166,7 +1166,7 @@ function AboutSection() {
               fontSize: 'clamp(28px, 3vw, 42px)', fontWeight: 400,
               lineHeight: 1.2, marginBottom: 28, color: 'var(--ink)', letterSpacing: '-0.01em',
             }}>
-              Science finds the problem.{' '}
+              Science finds the problem.<br />
               <span style={{ color: 'var(--kelp-deep)', fontWeight: 500 }}>Markets drive the change.</span>
             </p>
             <div style={{ display: 'grid', gap: 16, fontSize: 15.5, lineHeight: 1.75, color: 'var(--ink-2)' }}>
@@ -1281,6 +1281,55 @@ function ContactSection() {
   );
 }
 
+// ─────────────────────────────────────────────
+// VISITOR COUNTER
+// ─────────────────────────────────────────────
+
+function FooterCounter() {
+  const [count, setCount] = useState(0);
+  const [pct, setPct] = useState(0);
+  const [nextGoal, setNextGoal] = useState(10);
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem('yl_visits') || '{"count":0}');
+    const n = stored.count + 1;
+    localStorage.setItem('yl_visits', JSON.stringify({ count: n }));
+    const milestones = [10, 50, 100, 500, 1000, 5000, 10000];
+    const goal = milestones.find(function(m) { return m > n; }) || n * 2;
+    setCount(n);
+    setPct(Math.min(n / goal, 1));
+    setNextGoal(goal);
+  }, []);
+
+  return (
+    <div style={{
+      paddingTop: 16,
+      borderTop: '1px solid rgba(244,241,234,0.08)',
+      display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap',
+    }}>
+      <span style={{
+        width: 6, height: 6, borderRadius: '50%', flexShrink: 0,
+        background: '#6eb49a', opacity: 0.8,
+        animation: 'livePulse 2s ease-in-out infinite',
+      }}/>
+      <span className="mono" style={{ fontSize: 11, color: 'rgba(244,241,234,0.55)', letterSpacing: '0.08em', whiteSpace: 'nowrap' }}>
+        {count} visits this browser
+      </span>
+      <div style={{ flex: 1, minWidth: 80, height: 2, borderRadius: 999, background: 'rgba(244,241,234,0.08)', overflow: 'hidden' }}>
+        <div style={{
+          height: '100%', borderRadius: 999,
+          width: Math.round(pct * 100) + '%',
+          background: 'rgba(110,180,154,0.6)',
+          transition: 'width 1.2s cubic-bezier(0.22,1,0.36,1)',
+        }}/>
+      </div>
+      <span className="mono" style={{ fontSize: 10, color: 'rgba(244,241,234,0.28)', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>
+        next · {nextGoal}
+      </span>
+    </div>
+  );
+}
+
 function Footer() {
   return (
     <footer style={{
@@ -1290,17 +1339,21 @@ function Footer() {
       color: 'rgba(244,241,234,0.7)',
       backdropFilter: 'blur(8px)',
     }}>
-      <div style={{
-        maxWidth: 1240, margin: '0 auto',
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-        gap: 24, alignItems: 'baseline',
-      }}>
-        <div>
-          <div className="serif" style={{ fontSize: 22, color: 'rgba(244,241,234,0.95)' }}>Yu‑Shan Lin</div>
-          <div className="mono" style={{ fontSize: 11, marginTop: 6, letterSpacing: '0.08em', color: 'rgba(244,241,234,0.5)' }}>Sustainability · Data · Strategy</div>
+      <div style={{ maxWidth: 1240, margin: '0 auto' }}>
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: 24, alignItems: 'baseline', marginBottom: 20,
+        }}>
+          <div>
+            <div className="serif" style={{ fontSize: 22, color: 'rgba(244,241,234,0.95)' }}>Yu‑Shan Lin</div>
+            <div className="mono" style={{ fontSize: 11, marginTop: 6, letterSpacing: '0.08em', color: 'rgba(244,241,234,0.5)' }}>Sustainability · Data · Strategy</div>
+          </div>
+          <div/>
+          <div className="mono" style={{ fontSize: 11, letterSpacing: '0.06em', textAlign: 'right', color: 'rgba(244,241,234,0.5)' }}>© 2026 · open-source on GitHub</div>
         </div>
-        <div className="mono" style={{ fontSize: 11, letterSpacing: '0.06em' }}></div>
-        <div className="mono" style={{ fontSize: 11, letterSpacing: '0.06em', textAlign: 'right', color: 'rgba(244,241,234,0.5)' }}>© 2026 · open-source on GitHub</div>
+
+        {/* Visitor counter bar */}
+        <FooterCounter/>
       </div>
     </footer>
   );

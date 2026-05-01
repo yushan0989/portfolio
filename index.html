@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Yu-Shan Lin </title>
 
+<link rel="icon" type="image/png" href="https://yushan0989.github.io/portfolio/images/icon.png" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -811,15 +813,17 @@ function HeroCard() {
 // ─────────────────────────────────────────────
 
 const PROJECTS = [
-  {
-    id: 'P_001', title: 'Solar Energy Forecasting',
-    blurb: 'Regression and ML models forecasting solar output, served via interactive R Shiny dashboards.',
-    tags: ['R Shiny', 'Machine Learning', 'Renewables'],
-    color: 'var(--kelp)',
-    href: 'https://yushan0989.github.io/portfolio/projects/solar-energy.html',
-    glyph: 'solar',
-    metric: { v: '+12.4%', l: 'forecast accuracy' },
-  },
+{
+  id: 'P_001',
+  title: 'Solar Energy Forecasting',
+  blurb: 'Regression and ML models forecasting solar output, served via interactive R Shiny dashboards.',
+  tags: ['R Shiny', 'Machine Learning', 'Renewables'],
+  color: 'var(--kelp)',
+  href: 'https://yushan0989.github.io/portfolio/projects/solar-energy.html',
+  glyph: 'solar',
+  metric: { v: '+12.4%', l: 'forecast accuracy' },
+  thumbnail: 'https://raw.githubusercontent.com/yushan0989/portfolio/main/images/SE_facet.png'
+},
   {
     id: 'P_002', title: 'Hydropower Potential Investment',
     blurb: 'CMIP6 climate projections linked with hydropower potential for long-term investment planning.',

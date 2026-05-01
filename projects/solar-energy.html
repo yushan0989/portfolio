@@ -382,7 +382,22 @@ function ProjectPage() {
             ['1 hr → 24 hr', 'prediction horizon'],
           ].map(([n, l]) => (
             <div key={l} style={{ padding: '28px 24px', background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(8px)' }}>
-              <div className="serif" style={{ fontSize: 'clamp(32px, 4vw, 48px)', lineHeight: 1, color: 'var(--ink)', fontWeight: 400, letterSpacing: '-0.02em', marginBottom: 10 }}>{n}</div>
+              <div
+                className="serif"
+                style={{
+                  fontSize:
+                    n === '1 hr → 24 hr'
+                      ? 'clamp(20px, 2.2vw, 30px)'
+                      : 'clamp(32px, 4vw, 48px)',
+                  lineHeight: 1,
+                  color: 'var(--ink)',
+                  fontWeight: 400,
+                  letterSpacing: '-0.02em',
+                  marginBottom: 10
+                }}
+              >
+                {n}
+              </div>
               <div style={{ fontSize: 13, color: 'var(--ink-3)' }}>{l}</div>
             </div>
           ))}
@@ -415,7 +430,7 @@ function ProjectPage() {
                 Short-term variability in solar generation creates significant operational risk for energy operators — affecting electricity dispatch, grid stability, and maintenance scheduling. This project aimed to close the gap between raw meteorological data and actionable operational decisions.
               </p>
               <p>
-                By developing a forecasting system spanning 1-hour, 4-hour, and 24-hour lead times, the work provided operators with a reliable, continuously calibrated tool for real-time grid management — translating atmospheric signals into business-ready outputs.
+                By developing a forecasting system spanning 1-hour, 4-hour, and 24-hour lead times, the work provided operators with a reliable, continuously calibrated tool for real-time grid management — translating atmospheric signals into decision-making insights.
               </p>
             </div>
           </div>

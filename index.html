@@ -820,6 +820,7 @@ const PROJECTS = [
     color: 'var(--kelp)',
     href: 'https://yushan0989.github.io/portfolio/projects/solar-energy.html',
     glyph: 'solar',
+    cover: 'https://raw.githubusercontent.com/yushan0989/portfolio/main/images/Cover_Solar_Energy.png',
     metric: { v: '+12.4%', l: 'forecast accuracy' },
   },
   {
@@ -829,6 +830,7 @@ const PROJECTS = [
     color: 'var(--tide)',
     href: 'https://yushan0989.github.io/portfolio/projects/hydropower-potential.html',
     glyph: 'hydro',
+    cover: 'https://raw.githubusercontent.com/yushan0989/portfolio/main/images/Cover_Hydropower.png',
     metric: { v: '2050', l: 'horizon · 4 RCPs' },
   },
   {
@@ -838,6 +840,7 @@ const PROJECTS = [
     color: 'var(--tide-deep)',
     href: 'https://yushan0989.github.io/portfolio/projects/offshore-wind.html',
     glyph: 'wind',
+    cover: 'https://raw.githubusercontent.com/yushan0989/portfolio/main/images/Cover_Offshore_Wind.png',
     metric: { v: '−18 days', l: 'projected downtime' },
   },
   {
@@ -847,6 +850,7 @@ const PROJECTS = [
     color: 'var(--kelp-deep)',
     href: 'https://yushan0989.github.io/portfolio/projects/typhoon-visualisation.html',
     glyph: 'typhoon',
+    cover: 'https://raw.githubusercontent.com/yushan0989/portfolio/main/images/Cover_Typhoon_Visulisation.JPG',
     metric: { v: '6 hr', l: 'lead-time gain' },
   },
   {
@@ -856,6 +860,7 @@ const PROJECTS = [
     color: 'var(--coral)',
     href: 'https://yushan0989.github.io/portfolio/projects/lightning-signal.html',
     glyph: 'lightning',
+    cover: 'https://raw.githubusercontent.com/yushan0989/portfolio/main/images/Cover_Lightning_Signal.png',
     metric: { v: '94%', l: 'recall on jumps' },
   },
   {
@@ -865,6 +870,7 @@ const PROJECTS = [
     color: 'var(--ink-2)',
     href: 'https://yushan0989.github.io/portfolio/projects/consumer-behaviour.html',
     glyph: 'consumer',
+    cover: 'https://raw.githubusercontent.com/yushan0989/portfolio/main/images/Cover_Weather_Consumer.jpg',
     metric: { v: '0.71', l: 'temp ↔ basket r²' },
   },
 ];
@@ -996,7 +1002,7 @@ function ProjectGlyph({ kind, color }) {
 
 function ProjectCard({ p }) {
   return (
-    <a href={p.href} target="_blank" rel="noopener"
+    <a href={p.href}
       className="proj-card reveal glass"
       style={{
         padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column',
@@ -1017,7 +1023,10 @@ function ProjectCard({ p }) {
         borderBottom: '1px solid var(--line)',
       }}>
         <div className="proj-img" style={{ position: 'absolute', inset: 0, transition: 'transform 0.6s cubic-bezier(0.22,1,0.36,1)' }}>
-          <ProjectGlyph kind={p.glyph} color={p.color}/>
+          {p.cover
+            ? <img src={p.cover} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}/>
+            : <ProjectGlyph kind={p.glyph} color={p.color}/>
+          }
         </div>
         <div style={{ position: 'absolute', top: 14, left: 14, right: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span className="mono" style={{
@@ -1150,7 +1159,7 @@ function AboutSection() {
               border: '1px solid var(--line)',
             }}>
               <img
-              src="images/About_me_2.png"
+              src="https://raw.githubusercontent.com/yushan0989/portfolio/main/images/About_me_2.png"
               alt="Yu-Shan Lin"
               style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 12 }}
               />
@@ -1166,7 +1175,7 @@ function AboutSection() {
               fontSize: 'clamp(28px, 3vw, 42px)', fontWeight: 400,
               lineHeight: 1.2, marginBottom: 28, color: 'var(--ink)', letterSpacing: '-0.01em',
             }}>
-              Science finds the problem.<br />
+              Science finds the problem.<br/>
               <span style={{ color: 'var(--kelp-deep)', fontWeight: 500 }}>Markets drive the change.</span>
             </p>
             <div style={{ display: 'grid', gap: 16, fontSize: 15.5, lineHeight: 1.75, color: 'var(--ink-2)' }}>

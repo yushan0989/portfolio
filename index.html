@@ -428,6 +428,20 @@
 
 const { useEffect, useRef, useState, useMemo } = React;
 
+// Responsive helper — collapses 2-column layouts on small screens
+function useIsMobile(maxWidth = 768) {
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' && window.matchMedia(`(max-width: ${maxWidth}px)`).matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${maxWidth}px)`);
+    const onChange = (e) => setIsMobile(e.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, [maxWidth]);
+  return isMobile;
+}
+
 function IconArrow({ size = 14 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 16 16" fill="none">
@@ -711,6 +725,7 @@ function HeroNetwork() {
 }
 
 function Hero() {
+  const isMobile = useIsMobile();
   return (
     <section data-screen-label="01 Hero" style={{
       position: 'relative',
@@ -739,7 +754,7 @@ function Hero() {
 
         <div className="reveal" style={{
           display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1.2fr) minmax(320px, 0.8fr)',
+          gridTemplateColumns: isMobile ? '1fr' : 'minmax(0, 1.2fr) minmax(320px, 0.8fr)',
           gap: 'clamp(32px, 5vw, 72px)',
           alignItems: 'center',
         }}>
@@ -1226,6 +1241,7 @@ function AboutSection() {
 }
 
 function ContactSection() {
+  const isMobile = useIsMobile();
   return (
     <section id="contact" data-screen-label="05 Contact" style={{
       padding: 'clamp(48px, 6vh, 80px) clamp(20px, 4vw, 56px)', position: 'relative',
@@ -1235,7 +1251,7 @@ function ContactSection() {
 
         <div className="reveal" style={{
           display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1.3fr) minmax(0, 1fr)',
+          gridTemplateColumns: isMobile ? '1fr' : 'minmax(0, 1.3fr) minmax(0, 1fr)',
           gap: 'clamp(28px, 5vw, 80px)', alignItems: 'start',
         }}>
           <div>
@@ -1370,6 +1386,7 @@ function Footer() {
 
 function FloatingNav() {
   const [active, setActive] = useState('hero');
+  const isMobile = useIsMobile();
   useEffect(() => {
     const ids = ['projects', 'skills', 'about', 'contact'];
     const io = new IntersectionObserver((entries) => {
@@ -1388,22 +1405,24 @@ function FloatingNav() {
 
   return (
     <nav style={{
-      position: 'fixed', top: 24, left: '50%', transform: 'translateX(-50%)',
-      zIndex: 100, padding: '10px 14px', borderRadius: 999,
+      position: 'fixed', top: isMobile ? 12 : 24, left: '50%', transform: 'translateX(-50%)',
+      zIndex: 100, padding: isMobile ? '6px 8px' : '10px 14px', borderRadius: 999,
+      maxWidth: 'calc(100vw - 24px)',
       background: 'rgba(251,249,243,0.78)',
       backdropFilter: 'blur(20px) saturate(1.4)',
       border: '1px solid rgba(255,255,255,0.6)',
       boxShadow: '0 10px 40px -12px rgba(14,31,36,0.18)',
-      display: 'flex', gap: 4, alignItems: 'center',
+      display: 'flex', gap: isMobile ? 2 : 4, alignItems: 'center',
     }}>
       <a href="#" style={{
         fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--ink-2)',
         letterSpacing: '0.1em', padding: '6px 12px', borderRadius: 999, textDecoration: 'none',
+        display: isMobile ? 'none' : 'inline-block',
       }}>YL</a>
-      <span style={{ width: 1, height: 18, background: 'var(--line)', margin: '0 4px' }}></span>
+      <span style={{ width: 1, height: 18, background: 'var(--line)', margin: '0 4px', display: isMobile ? 'none' : 'block' }}></span>
       {links.map(([id, label]) => (
         <a key={id} href={`#${id}`} style={{
-          fontSize: 12.5, padding: '6px 12px', borderRadius: 999, textDecoration: 'none',
+          fontSize: isMobile ? 11.5 : 12.5, padding: isMobile ? '6px 9px' : '6px 12px', borderRadius: 999, textDecoration: 'none',
           color: active === id ? 'var(--paper)' : 'var(--ink-2)',
           background: active === id ? 'var(--ink)' : 'transparent',
           transition: 'background 0.25s, color 0.25s',

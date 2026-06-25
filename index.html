@@ -5,6 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Yu-Shan Lin </title>
 
+<meta name="description" content="Yu-Shan Lin — Sustainability × Data × Strategy. I translate complex environmental data into actionable, market-ready strategies, bridging environmental science, circular economy and business decision-making." />
+<meta name="author" content="Yu-Shan Lin" />
+<link rel="canonical" href="https://yushan0989.github.io/portfolio/" />
+
+<!-- Open Graph (LinkedIn, Facebook, messaging previews) -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://yushan0989.github.io/portfolio/" />
+<meta property="og:title" content="Yu-Shan Lin — Sustainability × Data × Strategy" />
+<meta property="og:description" content="Turning complex environmental data into actionable, market-ready strategies — environmental science, circular economy and business decision-making." />
+<meta property="og:image" content="https://yushan0989.github.io/portfolio/images/About_me_2.png" />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Yu-Shan Lin — Sustainability × Data × Strategy" />
+<meta name="twitter:description" content="Turning complex environmental data into actionable, market-ready strategies." />
+<meta name="twitter:image" content="https://yushan0989.github.io/portfolio/images/About_me_2.png" />
+
 <link rel="icon" type="image/png" href="https://yushan0989.github.io/portfolio/images/icon.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -218,6 +235,20 @@
     height: 100vh;
     background: var(--bone);
   }
+
+  /* Respect users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    /* Keep scroll-reveal content fully visible instead of stuck transparent */
+    .reveal { opacity: 1 !important; transform: none !important; }
+    .bar-fill { animation: none !important; transform: scaleX(var(--bar-target, 1)) !important; }
+    #cursor-blob { display: none !important; }
+  }
 </style>
 </head>
 <body>
@@ -245,6 +276,7 @@
   let lastFrame = 0;
   let running = true;
   let bgIntensity = 1;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function resize() {
     W = window.innerWidth;
@@ -254,6 +286,7 @@
     canvas.style.width = W + 'px';
     canvas.style.height = H + 'px';
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    if (reduceMotion) draw();
   }
 
   resize();
@@ -291,6 +324,15 @@
   }
 
   function draw() {
+    if (reduceMotion) {
+      const g0 = ctx.createLinearGradient(0, 0, 0, H);
+      g0.addColorStop(0, '#f6f3ec');
+      g0.addColorStop(0.55, '#eef0e8');
+      g0.addColorStop(1, '#e6ecea');
+      ctx.fillStyle = g0;
+      ctx.fillRect(0, 0, W, H);
+      return;
+    }
     if (!running) return;
     const now = performance.now();
     if (now - lastFrame < 33) {
@@ -411,7 +453,7 @@
     if (blob) blob.style.transform = `translate(${bx}px, ${by}px) translate(-50%, -50%)`;
     requestAnimationFrame(tickBlob);
   }
-  tickBlob();
+  if (!reduceMotion) tickBlob();
 
   window.__oceanBg = {
     setIntensity(v) { bgIntensity = Math.max(0, Math.min(1, v)); },
@@ -697,7 +739,9 @@ function HeroNetwork() {
         }
       });
 
-      rafId = requestAnimationFrame(draw);
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        rafId = requestAnimationFrame(draw);
+      }
     }
     draw();
 
@@ -1039,7 +1083,7 @@ function ProjectCard({ p }) {
       }}>
         <div className="proj-img" style={{ position: 'absolute', inset: 0, transition: 'transform 0.6s cubic-bezier(0.22,1,0.36,1)' }}>
           {p.cover
-            ? <img src={p.cover} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}/>
+            ? <img src={p.cover} alt={p.title} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}/>
             : <ProjectGlyph kind={p.glyph} color={p.color}/>
           }
         </div>
@@ -1158,6 +1202,7 @@ function SkillsSection() {
 }
 
 function AboutSection() {
+  const isMobile = useIsMobile();
   return (
     <section id="about" data-screen-label="04 About" style={{
       padding: 'clamp(48px, 6vh, 80px) clamp(20px, 4vw, 56px)',
@@ -1165,8 +1210,8 @@ function AboutSection() {
       <div style={{ maxWidth: 1240, margin: '0 auto' }}>
         <SectionHead num="03 /" en="About" color="var(--tide-deep)"/>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 32, alignItems: 'start' }}>
-          <div className="reveal glass" style={{ padding: 24, maxWidth: 360, position: 'sticky', top: 32 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))', gap: 32, alignItems: 'start' }}>
+          <div className="reveal glass" style={{ padding: 24, maxWidth: 360, marginInline: isMobile ? 'auto' : 0, position: isMobile ? 'static' : 'sticky', top: 32 }}>
             <div style={{
               aspectRatio: '4 / 5', borderRadius: 12,
               background: 'linear-gradient(135deg, var(--kelp-soft), var(--tide-soft))',
@@ -1176,6 +1221,8 @@ function AboutSection() {
               <img
               src="https://raw.githubusercontent.com/yushan0989/portfolio/main/images/About_me_2.png"
               alt="Yu-Shan Lin"
+              loading="lazy"
+              decoding="async"
               style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 12 }}
               />
             </div>
@@ -1185,7 +1232,7 @@ function AboutSection() {
             </div>
           </div>
 
-          <div className="reveal" style={{ gridColumn: 'span 2', maxWidth: 760 }}>
+          <div className="reveal" style={{ gridColumn: isMobile ? 'auto' : 'span 2', maxWidth: 760 }}>
             <p className="serif" style={{
               fontSize: 'clamp(28px, 3vw, 42px)', fontWeight: 400,
               lineHeight: 1.2, marginBottom: 28, color: 'var(--ink)', letterSpacing: '-0.01em',
